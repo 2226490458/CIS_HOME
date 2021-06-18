@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.mapper.GusersMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Gusers" >
+<mapper namespace="com.example.demo.mapper.CusersMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Cusers" >
     <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="login_name" property="loginName" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
     <result column="user_create" property="userCreate" jdbcType="TIMESTAMP" />
     <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
     <result column="face_path" property="facePath" jdbcType="VARCHAR" />
+    <result column="user_status" property="userStatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    user_id, login_name, user_name, user_pwd, status, user_create, face_url, face_path
+    user_id, employee_id, login_name, user_name, user_pwd, STATUS, user_create, face_url, 
+    face_path, user_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from gusers
+    from cusers
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <select id="listOfUser" resultMap="BaseResultMap">
+  <select id="listOfUser" resultType="com.example.demo.entity.Cusers">
     select
     <include refid="Base_Column_List" />
-    from gusers
-    where user_name = #{username, jdbcType=VARCHAR} and status = #{status, jdbcType=VARCHAR}
-    limit #{page, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}
+    from cusers
+    where user_id = #{userId}
+    limit #{page}, #{size}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from gusers
+    delete from cusers
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Gusers" keyProperty="userId" useGeneratedKeys="true" keyColumn="user_id" >
-    insert into gusers (login_name, user_name,
-      user_pwd, status, user_create, 
-      face_url, face_path)
-    values (#{loginName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
-      #{userPwd,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{userCreate,jdbcType=TIMESTAMP}, 
-      #{faceUrl,jdbcType=VARCHAR}, #{facePath,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.example.demo.entity.Cusers" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" >
+    insert into cusers (employee_id, login_name,
+      user_name, user_pwd, STATUS, 
+      user_create, face_url, face_path, 
+      user_status)
+    values (#{employeeId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{userCreate,jdbcType=TIMESTAMP}, #{faceUrl,jdbcType=VARCHAR}, #{facePath,jdbcType=VARCHAR}, 
+      #{userStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Gusers" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id" >
-    insert into gusers
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Cusers" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" >
+    insert into cusers
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        user_id,
+      <if test="employeeId != null" >
+        employee_id,
       </if>
       <if test="loginName != null" >
         login_name,
@@ -55,7 +60,7 @@
         user_pwd,
       </if>
       <if test="status != null" >
-        status,
+        STATUS,
       </if>
       <if test="userCreate != null" >
         user_create,
@@ -66,10 +71,13 @@
       <if test="facePath != null" >
         face_path,
       </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
       </if>
       <if test="loginName != null" >
         #{loginName,jdbcType=VARCHAR},
@@ -92,11 +100,17 @@
       <if test="facePath != null" >
         #{facePath,jdbcType=VARCHAR},
       </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Gusers" >
-    update gusers
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Cusers" >
+    update cusers
     <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
       <if test="loginName != null" >
         login_name = #{loginName,jdbcType=VARCHAR},
       </if>
@@ -107,7 +121,7 @@
         user_pwd = #{userPwd,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+        STATUS = #{status,jdbcType=INTEGER},
       </if>
       <if test="userCreate != null" >
         user_create = #{userCreate,jdbcType=TIMESTAMP},
@@ -118,18 +132,23 @@
       <if test="facePath != null" >
         face_path = #{facePath,jdbcType=VARCHAR},
       </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Gusers" >
-    update gusers
-    set login_name = #{loginName,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Cusers" >
+    update cusers
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      login_name = #{loginName,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       user_pwd = #{userPwd,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
       user_create = #{userCreate,jdbcType=TIMESTAMP},
       face_url = #{faceUrl,jdbcType=VARCHAR},
-      face_path = #{facePath,jdbcType=VARCHAR}
+      face_path = #{facePath,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

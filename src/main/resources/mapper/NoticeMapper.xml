@@ -7,9 +7,10 @@
     <result column="notice_title" property="noticeTitle" jdbcType="VARCHAR" />
     <result column="notice_content" property="noticeContent" jdbcType="VARCHAR" />
     <result column="notice_create" property="noticeCreate" jdbcType="TIMESTAMP" />
+    <result column="notice_status" property="noticeStatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    notice_id, user_id, notice_title, notice_content, notice_create
+    notice_id, user_id, notice_title, notice_content, notice_create, notice_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -17,33 +18,24 @@
     from notice
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </select>
-    <select id="listOfNotice" resultMap="BaseResultMap">
-      select
-      <include refid="Base_Column_List" />
-      from notice
-      <where>
-        <if test="noticeTitle != null">
-          notice_title like #{noticeTitle}
-        </if>
-        <if test="noticeContent">
-          and notice_content like #{noticeContent}
-        </if>
-      </where>
-      limit #{page}, #{size}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from notice
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyProperty="noticeId" keyColumn="notice_id" >
-    insert into notice (user_id, notice_title,
-      notice_content, notice_create)
-    values (#{userId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR},
-      #{noticeContent,jdbcType=VARCHAR}, #{noticeCreate,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.example.demo.entity.Notice" >
+    insert into notice (notice_id, user_id, notice_title, 
+      notice_content, notice_create, notice_status
+      )
+    values (#{noticeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, 
+      #{noticeContent,jdbcType=VARCHAR}, #{noticeCreate,jdbcType=TIMESTAMP}, #{noticeStatus,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyProperty="noticeId" keyColumn="notice_id" >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Notice" >
     insert into notice
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        notice_id,
+      </if>
       <if test="userId != null" >
         user_id,
       </if>
@@ -56,8 +48,14 @@
       <if test="noticeCreate != null" >
         notice_create,
       </if>
+      <if test="noticeStatus != null" >
+        notice_status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=INTEGER},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
@@ -69,6 +67,9 @@
       </if>
       <if test="noticeCreate != null" >
         #{noticeCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeStatus != null" >
+        #{noticeStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -87,6 +88,9 @@
       <if test="noticeCreate != null" >
         notice_create = #{noticeCreate,jdbcType=TIMESTAMP},
       </if>
+      <if test="noticeStatus != null" >
+        notice_status = #{noticeStatus,jdbcType=INTEGER},
+      </if>
     </set>
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </update>
@@ -95,7 +99,8 @@
     set user_id = #{userId,jdbcType=INTEGER},
       notice_title = #{noticeTitle,jdbcType=VARCHAR},
       notice_content = #{noticeContent,jdbcType=VARCHAR},
-      notice_create = #{noticeCreate,jdbcType=TIMESTAMP}
+      notice_create = #{noticeCreate,jdbcType=TIMESTAMP},
+      notice_status = #{noticeStatus,jdbcType=INTEGER}
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </update>
 </mapper>

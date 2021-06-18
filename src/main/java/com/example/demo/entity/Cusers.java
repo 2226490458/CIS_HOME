@@ -3,8 +3,10 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Gusers implements Serializable {
+public class Cusers implements Serializable {
     private Integer userId;
+
+    private Integer employeeId;
 
     private String loginName;
 
@@ -20,6 +22,8 @@ public class Gusers implements Serializable {
 
     private String facePath;
 
+    private Integer userStatus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserId() {
@@ -28,6 +32,14 @@ public class Gusers implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getLoginName() {
@@ -84,5 +96,13 @@ public class Gusers implements Serializable {
 
     public void setFacePath(String facePath) {
         this.facePath = facePath == null ? null : facePath.trim();
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
     }
 }

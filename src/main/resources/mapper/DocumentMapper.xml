@@ -8,9 +8,11 @@
     <result column="docement_name" property="docementName" jdbcType="VARCHAR" />
     <result column="docement_remark" property="docementRemark" jdbcType="VARCHAR" />
     <result column="document_create" property="documentCreate" jdbcType="TIMESTAMP" />
+    <result column="document_status" property="documentStatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    document_id, user_id, document_title, docement_name, docement_remark, document_create
+    document_id, user_id, document_title, docement_name, docement_remark, document_create, 
+    document_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -18,28 +20,24 @@
     from document
     where document_id = #{documentId,jdbcType=INTEGER}
   </select>
-    <select id="listOfDocument" resultMap="BaseResultMap">
-      select
-      <include refid="Base_Column_List" />
-      from document
-      where document_title like #{documentTitle}
-      limit #{page}, #{size}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from document
     where document_id = #{documentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyProperty="documentId" keyColumn="document_id" >
-    insert into document (user_id, document_title,
-      docement_name, docement_remark, document_create
-      )
-    values (#{userId,jdbcType=INTEGER}, #{documentTitle,jdbcType=VARCHAR},
-      #{docementName,jdbcType=VARCHAR}, #{docementRemark,jdbcType=VARCHAR}, #{documentCreate,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.example.demo.entity.Document" >
+    insert into document (document_id, user_id, document_title, 
+      docement_name, docement_remark, document_create, 
+      document_status)
+    values (#{documentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{documentTitle,jdbcType=VARCHAR}, 
+      #{docementName,jdbcType=VARCHAR}, #{docementRemark,jdbcType=VARCHAR}, #{documentCreate,jdbcType=TIMESTAMP}, 
+      #{documentStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyProperty="documentId" keyColumn="document_id"  >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Document" >
     insert into document
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="documentId != null" >
+        document_id,
+      </if>
       <if test="userId != null" >
         user_id,
       </if>
@@ -55,8 +53,14 @@
       <if test="documentCreate != null" >
         document_create,
       </if>
+      <if test="documentStatus != null" >
+        document_status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="documentId != null" >
+        #{documentId,jdbcType=INTEGER},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
@@ -71,6 +75,9 @@
       </if>
       <if test="documentCreate != null" >
         #{documentCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="documentStatus != null" >
+        #{documentStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -92,6 +99,9 @@
       <if test="documentCreate != null" >
         document_create = #{documentCreate,jdbcType=TIMESTAMP},
       </if>
+      <if test="documentStatus != null" >
+        document_status = #{documentStatus,jdbcType=INTEGER},
+      </if>
     </set>
     where document_id = #{documentId,jdbcType=INTEGER}
   </update>
@@ -101,7 +111,8 @@
       document_title = #{documentTitle,jdbcType=VARCHAR},
       docement_name = #{docementName,jdbcType=VARCHAR},
       docement_remark = #{docementRemark,jdbcType=VARCHAR},
-      document_create = #{documentCreate,jdbcType=TIMESTAMP}
+      document_create = #{documentCreate,jdbcType=TIMESTAMP},
+      document_status = #{documentStatus,jdbcType=INTEGER}
     where document_id = #{documentId,jdbcType=INTEGER}
   </update>
 </mapper>

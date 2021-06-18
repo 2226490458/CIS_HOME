@@ -24,7 +24,7 @@ public class Employee implements Serializable {
 
     private String qqNum;
 
-    private String emal;
+    private String email;
 
     private Integer sex;
 
@@ -43,6 +43,8 @@ public class Employee implements Serializable {
     private String remark;
 
     private Date employeeCreate;
+
+    private Integer employeeStatus;
 
     private static final long serialVersionUID = 1L;
 
@@ -126,12 +128,12 @@ public class Employee implements Serializable {
         this.qqNum = qqNum == null ? null : qqNum.trim();
     }
 
-    public String getEmal() {
-        return emal;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmal(String emal) {
-        this.emal = emal == null ? null : emal.trim();
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public Integer getSex() {
@@ -204,5 +206,13 @@ public class Employee implements Serializable {
 
     public void setEmployeeCreate(Date employeeCreate) {
         this.employeeCreate = employeeCreate;
+    }
+
+    public Integer getEmployeeStatus() {
+        return employeeStatus;
+    }
+
+    public void setEmployeeStatus(Integer employeeStatus) {
+        this.employeeStatus = employeeStatus;
     }
 }

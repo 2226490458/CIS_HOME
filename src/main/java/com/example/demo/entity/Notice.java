@@ -14,6 +14,8 @@ public class Notice implements Serializable {
 
     private Date noticeCreate;
 
+    private Integer noticeStatus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getNoticeId() {
@@ -54,5 +56,13 @@ public class Notice implements Serializable {
 
     public void setNoticeCreate(Date noticeCreate) {
         this.noticeCreate = noticeCreate;
+    }
+
+    public Integer getNoticeStatus() {
+        return noticeStatus;
+    }
+
+    public void setNoticeStatus(Integer noticeStatus) {
+        this.noticeStatus = noticeStatus;
     }
 }

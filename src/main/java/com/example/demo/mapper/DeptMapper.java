@@ -33,7 +33,6 @@ public interface DeptMapper {
      * @return 某个部门的信息数据
      */
     Dept selectByPrimaryKey(Integer deptId);
-
     /**
      * 分页查询部门信息
      * @param query 查询条件

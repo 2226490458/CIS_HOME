@@ -8,10 +8,10 @@ import java.util.List;
 public interface EmployeeMapper {
     /**
      * 根据员工编号删除某位员工
-     * @param jobId 员工编号
+     * @param employeeId 员工编号
      * @return 1 表示删除成功； 0 表示删除失败
      */
-    int deleteByPrimaryKey(Integer jobId);
+    int deleteByPrimaryKey(Integer employeeId);
 
     /**
      * 添加员工（完整员工信息）
@@ -27,14 +27,12 @@ public interface EmployeeMapper {
      */
     int insertSelective(Employee record);
 
-
     /**
      * 根据员工编号查寻某位员工信息
-     * @param jobId 员工编号
+     * @param employeeId 员工编号
      * @return 某位员工信息
      */
-    Employee selectByPrimaryKey(Integer jobId);
-
+    Employee selectByPrimaryKey(Integer employeeId);
     /**
      * 分页查询员工信息
      * @param query 查询条件
@@ -49,5 +47,10 @@ public interface EmployeeMapper {
      */
     int updateByPrimaryKeySelective(Employee record);
 
-
+    /**
+     * 更新员工信息（全部更新）
+     * @param record 要更新的员工信息数据
+     * @return 1 表示更新成功； 0 表示更新失败
+     */
+    int updateByPrimaryKey(Employee record);
 }

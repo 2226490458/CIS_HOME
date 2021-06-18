@@ -16,6 +16,8 @@ public class Document implements Serializable {
 
     private Date documentCreate;
 
+    private Integer documentStatus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDocumentId() {
@@ -64,5 +66,13 @@ public class Document implements Serializable {
 
     public void setDocumentCreate(Date documentCreate) {
         this.documentCreate = documentCreate;
+    }
+
+    public Integer getDocumentStatus() {
+        return documentStatus;
+    }
+
+    public void setDocumentStatus(Integer documentStatus) {
+        this.documentStatus = documentStatus;
     }
 }

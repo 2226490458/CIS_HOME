@@ -9,6 +9,8 @@ public class Dept implements Serializable {
 
     private String deptRemark;
 
+    private Integer deptStatus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDeptId() {
@@ -33,5 +35,13 @@ public class Dept implements Serializable {
 
     public void setDeptRemark(String deptRemark) {
         this.deptRemark = deptRemark == null ? null : deptRemark.trim();
+    }
+
+    public Integer getDeptStatus() {
+        return deptStatus;
+    }
+
+    public void setDeptStatus(Integer deptStatus) {
+        this.deptStatus = deptStatus;
     }
 }

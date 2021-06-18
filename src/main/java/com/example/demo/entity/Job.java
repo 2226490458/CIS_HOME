@@ -9,6 +9,8 @@ public class Job implements Serializable {
 
     private String jobRemark;
 
+    private Integer jobStatus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getJobId() {
@@ -33,5 +35,13 @@ public class Job implements Serializable {
 
     public void setJobRemark(String jobRemark) {
         this.jobRemark = jobRemark == null ? null : jobRemark.trim();
+    }
+
+    public Integer getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(Integer jobStatus) {
+        this.jobStatus = jobStatus;
     }
 }

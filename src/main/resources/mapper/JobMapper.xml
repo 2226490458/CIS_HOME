@@ -5,9 +5,10 @@
     <id column="job_id" property="jobId" jdbcType="INTEGER" />
     <result column="job_name" property="jobName" jdbcType="VARCHAR" />
     <result column="job_remark" property="jobRemark" jdbcType="VARCHAR" />
+    <result column="job_status" property="jobStatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    job_id, job_name, job_remark
+    job_id, job_name, job_remark, job_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -15,24 +16,17 @@
     from job
     where job_id = #{jobId,jdbcType=INTEGER}
   </select>
-  <select id="listOfJob" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from job
-    where job_name like #{jobName}
-    limit #{page}, #{size}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from job
     where job_id = #{jobId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Job" keyProperty="jobId" useGeneratedKeys="true" keyColumn="job_id" >
-    insert into job (job_name, job_remark
-      )
-    values (#{jobName,jdbcType=VARCHAR}, #{jobRemark,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.example.demo.entity.Job" >
+    insert into job (job_id, job_name, job_remark, 
+      job_status)
+    values (#{jobId,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{jobRemark,jdbcType=VARCHAR}, 
+      #{jobStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Job" useGeneratedKeys="true" keyProperty="jobId" keyColumn="job_id" >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Job" >
     insert into job
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="jobId != null" >
@@ -43,6 +37,9 @@
       </if>
       <if test="jobRemark != null" >
         job_remark,
+      </if>
+      <if test="jobStatus != null" >
+        job_status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -55,6 +52,9 @@
       <if test="jobRemark != null" >
         #{jobRemark,jdbcType=VARCHAR},
       </if>
+      <if test="jobStatus != null" >
+        #{jobStatus,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Job" >
@@ -66,13 +66,17 @@
       <if test="jobRemark != null" >
         job_remark = #{jobRemark,jdbcType=VARCHAR},
       </if>
+      <if test="jobStatus != null" >
+        job_status = #{jobStatus,jdbcType=INTEGER},
+      </if>
     </set>
     where job_id = #{jobId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Job" >
     update job
     set job_name = #{jobName,jdbcType=VARCHAR},
-      job_remark = #{jobRemark,jdbcType=VARCHAR}
+      job_remark = #{jobRemark,jdbcType=VARCHAR},
+      job_status = #{jobStatus,jdbcType=INTEGER}
     where job_id = #{jobId,jdbcType=INTEGER}
   </update>
 </mapper>
