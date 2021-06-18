@@ -24,10 +24,17 @@
     <result column="employee_create" property="employeeCreate" jdbcType="TIMESTAMP" />
     <result column="employee_status" property="employeeStatus" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="DtoResultMap" type="com.example.demo.dtos.EmpDTO" extends="BaseResultMap">
+    <result column="job_name" property="jobName" />
+    <result column="dept_name" property="deptName" />
+  </resultMap>
   <sql id="Base_Column_List" >
-    employee_id, job_id, dept_id, employee_name, card_id, address, post_card, tel, phone, 
+    employee_id, employee.job_id, employee.dept_id, employee_name, card_id, address, post_card, tel, phone,
     qq_num, email, sex, party, birthday, race, education, speciality, hobby, remark, employee_create,
     employee_status
+  </sql>
+  <sql id="Dto_Column_List">
+    job_name, dept_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -35,13 +42,17 @@
     from employee
     where employee_id = #{employeeId,jdbcType=INTEGER}
   </select>
-  <select id="listOfEmp" resultMap="BaseResultMap">
+  <select id="listOfEmp" resultMap="DtoResultMap">
     select
     <include refid="Base_Column_List"/>
+    ,
+    <include refid="Dto_Column_List" />
     from employee
+    join dept on employee.dept_id = dept.dept_id
+    join job on employee.job_id = job.job_id
     <where>
       <if test="jobId != null">
-        job_id = #{jobId}
+        employee.job_id = #{jobId}
       </if>
       <if test="sex != null">
         and sex = #{sex}
@@ -56,7 +67,7 @@
         and card_id = #{cardId}
       </if>
       <if test="deptId != null">
-        and dept_id =#{deptId}
+        and employee.dept_id =#{deptId}
       </if>
     </where>
     limit #{page}, #{size}
@@ -72,14 +83,14 @@
       qq_num, email, sex, party,
       birthday, race, education, 
       speciality, hobby, remark, 
-      employee_create, employee_status)
+      employee_status)
     values (#{employeeId,jdbcType=INTEGER}, #{jobId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
       #{employeeName,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{postCard,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{qqNum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{party,jdbcType=VARCHAR},
       #{birthday,jdbcType=TIMESTAMP}, #{race,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
       #{speciality,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{employeeCreate,jdbcType=TIMESTAMP}, #{employeeStatus,jdbcType=INTEGER})
+      #{employeeStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.entity.Employee" useGeneratedKeys="true" keyColumn="employee_id" keyProperty="employeeId" >
     insert into employee
@@ -212,9 +223,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Employee" >
     update employee
     <set >
-      <if test="jobId != null" >
-        job_id = #{jobId,jdbcType=INTEGER},
-      </if>
       <if test="deptId != null" >
         dept_id = #{deptId,jdbcType=INTEGER},
       </if>
@@ -239,7 +247,7 @@
       <if test="qqNum != null" >
         qq_num = #{qqNum,jdbcType=VARCHAR},
       </if>
-      <if test="emal != null" >
+      <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >

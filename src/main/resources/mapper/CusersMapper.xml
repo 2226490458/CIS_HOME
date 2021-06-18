@@ -27,7 +27,14 @@
     select
     <include refid="Base_Column_List" />
     from cusers
-    where user_name like #{username, jdbcType=VARCHAR} and status = #{status, jdbcType=VARCHAR}
+    <where>
+      <if test="username != null">
+        user_name like #{username, jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        and status = #{status, jdbcType=VARCHAR}
+      </if>
+    </where>
     limit #{page, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -37,11 +44,11 @@
   <insert id="insert" parameterType="com.example.demo.entity.Cusers" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" >
     insert into cusers (employee_id, login_name,
       user_name, user_pwd, STATUS, 
-      user_create, face_url, face_path, 
+      face_url, face_path,
       user_status)
     values (#{employeeId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{userCreate,jdbcType=TIMESTAMP}, #{faceUrl,jdbcType=VARCHAR}, #{facePath,jdbcType=VARCHAR}, 
+      #{faceUrl,jdbcType=VARCHAR}, #{facePath,jdbcType=VARCHAR},
       #{userStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.entity.Cusers" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" >

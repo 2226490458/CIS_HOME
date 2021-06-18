@@ -1,10 +1,12 @@
 package com.example.demo.vos.doc;
 
+import com.example.demo.common.Page;
+
 /**
  * @author 青菜白玉堂
  * @create 2021-06-17
  */
-public class DocQueryVO {
+public class DocQueryVO extends Page {
     private String documentTitle;
 
     @Override
@@ -19,6 +21,6 @@ public class DocQueryVO {
     }
 
     public void setDocumentTitle(String documentTitle) {
-        this.documentTitle = documentTitle;
+        this.documentTitle = documentTitle == null ? "%%" : "%" + documentTitle + "%";
     }
 }

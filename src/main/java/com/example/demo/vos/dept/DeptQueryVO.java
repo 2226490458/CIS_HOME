@@ -1,10 +1,12 @@
 package com.example.demo.vos.dept;
 
+import com.example.demo.common.Page;
+
 /**
  * @author 青菜白玉堂
  * @create 2021-06-17
  */
-public class DeptQueryVO {
+public class DeptQueryVO extends Page {
     private String deptName;
 
     @Override
@@ -19,6 +21,6 @@ public class DeptQueryVO {
     }
 
     public void setDeptName(String deptName) {
-        this.deptName = deptName;
+        this.deptName = deptName == null ? "%%" : "%" + deptName + "%";
     }
 }

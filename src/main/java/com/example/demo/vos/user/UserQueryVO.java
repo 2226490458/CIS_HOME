@@ -1,10 +1,12 @@
 package com.example.demo.vos.user;
 
+import com.example.demo.common.Page;
+
 /**
  * @author 青菜白玉堂
  * @create 2021-06-17
  */
-public class UserQueryVO {
+public class UserQueryVO extends Page {
     private String username;
     private String status;
 
@@ -21,7 +23,7 @@ public class UserQueryVO {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? "%%" : "%" + username + "%";
     }
 
     public String getStatus() {

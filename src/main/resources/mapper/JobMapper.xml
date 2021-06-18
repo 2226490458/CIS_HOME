@@ -28,9 +28,9 @@
     where job_id = #{jobId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.demo.entity.Job" useGeneratedKeys="true" keyColumn="job_id" keyProperty="jobId" >
-    insert into job (job_id, job_name, job_remark, 
+    insert into job (job_name, job_remark,
       job_status)
-    values (#{jobId,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{jobRemark,jdbcType=VARCHAR}, 
+    values (#{jobName,jdbcType=VARCHAR}, #{jobRemark,jdbcType=VARCHAR},
       #{jobStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.entity.Job" useGeneratedKeys="true" keyColumn="job_id" keyProperty="jobId"  >

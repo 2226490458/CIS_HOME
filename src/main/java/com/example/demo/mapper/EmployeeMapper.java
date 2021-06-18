@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.dtos.EmpDTO;
 import com.example.demo.entity.Employee;
 import com.example.demo.vos.emp.EmpQueryVO;
 
@@ -38,7 +39,7 @@ public interface EmployeeMapper {
      * @param query 查询条件
      * @return 指定页的员工信息数据
      */
-    List<Employee> listOfEmp(EmpQueryVO query);
+    List<EmpDTO> listOfEmp(EmpQueryVO query);
 
     /**
      * 更新员工信息（选择性更新）

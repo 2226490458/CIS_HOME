@@ -44,4 +44,14 @@ public class Dept implements Serializable {
     public void setDeptStatus(Integer deptStatus) {
         this.deptStatus = deptStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
+                ", deptRemark='" + deptRemark + '\'' +
+                ", deptStatus=" + deptStatus +
+                '}';
+    }
 }

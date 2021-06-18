@@ -33,11 +33,11 @@
   </delete>
   <insert id="insert" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyColumn="document_id" keyProperty="documentId" >
     insert into document (user_id, document_title,
-      document_name, document_remark, document_create,
+      document_name, document_remark,
       document_status)
     values (#{userId,jdbcType=INTEGER}, #{documentTitle,jdbcType=VARCHAR},
-      #{documentName,jdbcType=VARCHAR}, #{documentRemark,jdbcType=VARCHAR}, #{documentCreate,jdbcType=TIMESTAMP},
-      #{documentStatus,jdbcType=INTEGER})
+      #{documentName,jdbcType=VARCHAR}, #{documentRemark,jdbcType=VARCHAR}, #{documentStatus,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyColumn="document_id" keyProperty="documentId" >
     insert into document
@@ -53,9 +53,6 @@
       </if>
       <if test="documentRemark != null" >
         document_remark,
-      </if>
-      <if test="documentCreate != null" >
-        document_create,
       </if>
       <if test="documentStatus != null" >
         document_status,
@@ -73,9 +70,6 @@
       </if>
       <if test="documentRemark != null" >
         #{documentRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="documentCreate != null" >
-        #{documentCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="documentStatus != null" >
         #{documentStatus,jdbcType=INTEGER},

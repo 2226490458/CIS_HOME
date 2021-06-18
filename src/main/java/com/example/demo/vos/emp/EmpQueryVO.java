@@ -1,11 +1,13 @@
 package com.example.demo.vos.emp;
 
+import com.example.demo.common.Page;
+
 /**
  * @author 青菜白玉堂
  * @create 2021-06-17
  */
-public class EmpQueryVO {
-    private Integer employeeId;
+public class EmpQueryVO extends Page {
+    private Integer jobId;
     private Integer sex;
     private String employeeName;
     private String phone;
@@ -15,7 +17,7 @@ public class EmpQueryVO {
     @Override
     public String toString() {
         return "EmpQueryVO{" +
-                "employeeId=" + employeeId +
+                "jobId=" + jobId +
                 ", sex=" + sex +
                 ", employeeName='" + employeeName + '\'' +
                 ", phone='" + phone + '\'' +
@@ -24,12 +26,12 @@ public class EmpQueryVO {
                 '}';
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public Integer getJobId() {
+        return jobId;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
     }
 
     public Integer getSex() {
@@ -45,7 +47,7 @@ public class EmpQueryVO {
     }
 
     public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+        this.employeeName = employeeName == null ? "%%" : "%" + employeeName + "%";
     }
 
     public String getPhone() {

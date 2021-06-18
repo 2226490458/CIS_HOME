@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.dtos.NoticeDTO;
 import com.example.demo.entity.Notice;
 import com.example.demo.vos.notice.NoticeQueryVO;
 
@@ -39,7 +40,7 @@ public interface NoticeMapper {
      * @param query 查询条件
      * @return 指定页的公告数据
      */
-    List<Notice> listOfNotice(NoticeQueryVO query);
+    List<NoticeDTO> listOfNotice(NoticeQueryVO query);
 
     /**
      * 更新公告（选择性更新）

@@ -5,9 +5,27 @@ package com.example.demo.common;
  * @create 2021-06-17
  */
 public class Page {
-    // 当前页码
-    private Integer page;
+    private Integer page = 1;
 
-    // 一页显示的数据条数
-    private Integer size;
+    private Integer size = 10;
+
+    public Integer getPage() {
+        return (this.page - 1) * this.size;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public Integer getStart() {
+        return (this.page - 1) * this.size;
+    }
 }

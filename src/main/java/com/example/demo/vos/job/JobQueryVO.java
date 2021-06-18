@@ -1,19 +1,19 @@
 package com.example.demo.vos.job;
 
+import com.example.demo.common.Page;
+
 /**
  * @author 青菜白玉堂
  * @create 2021-06-17
  */
-public class JobQueryVO {
+public class JobQueryVO extends Page {
     private String jobName;
 
-    private String jobRemark;
 
     @Override
     public String toString() {
         return "JobQueryVO{" +
                 "jobName='" + jobName + '\'' +
-                ", jobRemark='" + jobRemark + '\'' +
                 '}';
     }
 
@@ -22,14 +22,6 @@ public class JobQueryVO {
     }
 
     public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    public String getJobRemark() {
-        return jobRemark;
-    }
-
-    public void setJobRemark(String jobRemark) {
-        this.jobRemark = jobRemark;
+        this.jobName = jobName == null ? "%%" : "%" + jobName + "%";
     }
 }

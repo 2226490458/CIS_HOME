@@ -9,8 +9,14 @@
     <result column="notice_create" property="noticeCreate" jdbcType="TIMESTAMP" />
     <result column="notice_status" property="noticeStatus" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="DtoResultMap" type="com.example.demo.dtos.NoticeDTO" extends="BaseResultMap">
+    <result column="user_name" property="userName" />
+  </resultMap>
   <sql id="Base_Column_List" >
-    notice_id, user_id, notice_title, notice_content, notice_create, notice_status
+    notice_id, notice.user_id, notice_title, notice_content, notice_create, notice_status
+  </sql>
+  <sql id="Dto_Column_List">
+    user_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -18,15 +24,18 @@
     from notice
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </select>
-  <select id="listOfNotice" resultMap="BaseResultMap">
+  <select id="listOfNotice" resultMap="DtoResultMap">
     select
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Dto_Column_List"/>
     from notice
+    join cusers on notice.user_id = cusers.user_id
     <where>
       <if test="noticeTitle != null">
         notice_title like #{noticeTitle}
       </if>
-      <if test="noticeContent">
+      <if test="noticeContent != null">
         and notice_content like #{noticeContent}
       </if>
     </where>
@@ -37,11 +46,11 @@
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyColumn="notice_id" keyProperty="noticeId" >
-    insert into notice (notice_id, user_id, notice_title, 
-      notice_content, notice_create, notice_status
+    insert into notice ( user_id, notice_title,
+      notice_content, notice_status
       )
-    values (#{noticeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, 
-      #{noticeContent,jdbcType=VARCHAR}, #{noticeCreate,jdbcType=TIMESTAMP}, #{noticeStatus,jdbcType=INTEGER}
+    values (#{userId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR},
+      #{noticeContent,jdbcType=VARCHAR}, #{noticeStatus,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyColumn="notice_id" keyProperty="noticeId"  >
@@ -56,9 +65,6 @@
       <if test="noticeContent != null" >
         notice_content,
       </if>
-      <if test="noticeCreate != null" >
-        notice_create,
-      </if>
       <if test="noticeStatus != null" >
         notice_status,
       </if>
@@ -72,9 +78,6 @@
       </if>
       <if test="noticeContent != null" >
         #{noticeContent,jdbcType=VARCHAR},
-      </if>
-      <if test="noticeCreate != null" >
-        #{noticeCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="noticeStatus != null" >
         #{noticeStatus,jdbcType=INTEGER},
