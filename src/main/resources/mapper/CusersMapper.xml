@@ -23,12 +23,12 @@
     from cusers
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <select id="listOfUser" resultType="com.example.demo.entity.Cusers">
+  <select id="listOfUser" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from cusers
-    where user_id = #{userId}
-    limit #{page}, #{size}
+    where user_name like #{username, jdbcType=VARCHAR} and status = #{status, jdbcType=VARCHAR}
+    limit #{page, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from cusers

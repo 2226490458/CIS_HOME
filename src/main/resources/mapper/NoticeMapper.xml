@@ -18,11 +18,25 @@
     from notice
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </select>
+  <select id="listOfNotice" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from notice
+    <where>
+      <if test="noticeTitle != null">
+        notice_title like #{noticeTitle}
+      </if>
+      <if test="noticeContent">
+        and notice_content like #{noticeContent}
+      </if>
+    </where>
+    limit #{page}, #{size}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from notice
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Notice" >
+  <insert id="insert" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyColumn="notice_id" keyProperty="noticeId" >
     insert into notice (notice_id, user_id, notice_title, 
       notice_content, notice_create, notice_status
       )
@@ -30,12 +44,9 @@
       #{noticeContent,jdbcType=VARCHAR}, #{noticeCreate,jdbcType=TIMESTAMP}, #{noticeStatus,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Notice" >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyColumn="notice_id" keyProperty="noticeId"  >
     insert into notice
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="noticeId != null" >
-        notice_id,
-      </if>
       <if test="userId != null" >
         user_id,
       </if>
@@ -53,9 +64,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="noticeId != null" >
-        #{noticeId,jdbcType=INTEGER},
-      </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>

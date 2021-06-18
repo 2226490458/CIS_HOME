@@ -12,7 +12,7 @@
     <result column="tel" property="tel" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="qq_num" property="qqNum" jdbcType="VARCHAR" />
-    <result column="emal" property="emal" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="INTEGER" />
     <result column="party" property="party" jdbcType="VARCHAR" />
     <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
@@ -26,7 +26,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     employee_id, job_id, dept_id, employee_name, card_id, address, post_card, tel, phone, 
-    qq_num, emal, sex, party, birthday, race, education, speciality, hobby, remark, employee_create, 
+    qq_num, email, sex, party, birthday, race, education, speciality, hobby, remark, employee_create,
     employee_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -35,32 +35,56 @@
     from employee
     where employee_id = #{employeeId,jdbcType=INTEGER}
   </select>
+  <select id="listOfEmp" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from employee
+    <where>
+      <if test="jobId != null">
+        job_id = #{jobId}
+      </if>
+      <if test="sex != null">
+        and sex = #{sex}
+      </if>
+      <if test="employeeName != null">
+        and employee_name like #{employeeName}
+      </if>
+      <if test="phone != null">
+        and phone = #{phone}
+      </if>
+      <if test="cardId != null">
+        and card_id = #{cardId}
+      </if>
+      <if test="deptId != null">
+        and dept_id =#{deptId}
+      </if>
+    </where>
+    limit #{page}, #{size}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employee
     where employee_id = #{employeeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Employee" >
+  <insert id="insert" parameterType="com.example.demo.entity.Employee" useGeneratedKeys="true" keyColumn="employee_id" keyProperty="employeeId" >
     insert into employee (employee_id, job_id, dept_id, 
       employee_name, card_id, address, 
       post_card, tel, phone, 
-      qq_num, emal, sex, party, 
+      qq_num, email, sex, party,
       birthday, race, education, 
       speciality, hobby, remark, 
       employee_create, employee_status)
     values (#{employeeId,jdbcType=INTEGER}, #{jobId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
       #{employeeName,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{postCard,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{qqNum,jdbcType=VARCHAR}, #{emal,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{party,jdbcType=VARCHAR}, 
+      #{qqNum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{party,jdbcType=VARCHAR},
       #{birthday,jdbcType=TIMESTAMP}, #{race,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
       #{speciality,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{employeeCreate,jdbcType=TIMESTAMP}, #{employeeStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Employee" >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Employee" useGeneratedKeys="true" keyColumn="employee_id" keyProperty="employeeId" >
     insert into employee
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="employeeId != null" >
-        employee_id,
-      </if>
+
       <if test="jobId != null" >
         job_id,
       </if>
@@ -88,8 +112,8 @@
       <if test="qqNum != null" >
         qq_num,
       </if>
-      <if test="emal != null" >
-        emal,
+      <if test="email != null" >
+        email,
       </if>
       <if test="sex != null" >
         sex,
@@ -123,9 +147,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="employeeId != null" >
-        #{employeeId,jdbcType=INTEGER},
-      </if>
       <if test="jobId != null" >
         #{jobId,jdbcType=INTEGER},
       </if>
@@ -153,8 +174,8 @@
       <if test="qqNum != null" >
         #{qqNum,jdbcType=VARCHAR},
       </if>
-      <if test="emal != null" >
-        #{emal,jdbcType=VARCHAR},
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=INTEGER},
@@ -219,7 +240,7 @@
         qq_num = #{qqNum,jdbcType=VARCHAR},
       </if>
       <if test="emal != null" >
-        emal = #{emal,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=INTEGER},
@@ -265,7 +286,7 @@
       tel = #{tel,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       qq_num = #{qqNum,jdbcType=VARCHAR},
-      emal = #{emal,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       party = #{party,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=TIMESTAMP},

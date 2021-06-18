@@ -16,11 +16,12 @@
     from dept
     where dept_id = #{deptId,jdbcType=INTEGER}
   </select>
-  <select id="listOfDept" resultType="com.example.demo.entity.Dept">
+  <select id="listOfDept" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from dept
-    limit #{page}, #{size}
+    where dept_name like #{deptName, jdbcType=VARCHAR}
+    limit #{page, jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dept
