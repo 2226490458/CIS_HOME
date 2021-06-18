@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
  * 下载中心管理模块
  */
 @RestController
-public class UploadController {
+public class DocumentController {
 }
