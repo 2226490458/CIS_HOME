@@ -10,9 +10,9 @@ public class Document implements Serializable {
 
     private String documentTitle;
 
-    private String docementName;
+    private String documentName;
 
-    private String docementRemark;
+    private String documentRemark;
 
     private Date documentCreate;
 
@@ -44,20 +44,20 @@ public class Document implements Serializable {
         this.documentTitle = documentTitle == null ? null : documentTitle.trim();
     }
 
-    public String getDocementName() {
-        return docementName;
+    public String getDocumentName() {
+        return documentName;
     }
 
-    public void setDocementName(String docementName) {
-        this.docementName = docementName == null ? null : docementName.trim();
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName == null ? null : documentName.trim();
     }
 
-    public String getDocementRemark() {
-        return docementRemark;
+    public String getDocumentRemark() {
+        return documentRemark;
     }
 
-    public void setDocementRemark(String docementRemark) {
-        this.docementRemark = docementRemark == null ? null : docementRemark.trim();
+    public void setDocumentRemark(String documentRemark) {
+        this.documentRemark = documentRemark == null ? null : documentRemark.trim();
     }
 
     public Date getDocumentCreate() {
