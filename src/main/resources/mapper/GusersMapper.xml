@@ -31,7 +31,7 @@
     delete from gusers
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Gusers" keyProperty="user_id" useGeneratedKeys="true" >
+  <insert id="insert" parameterType="com.example.demo.entity.Gusers" keyProperty="userId" useGeneratedKeys="true" keyColumn="user_id" >
     insert into gusers (login_name, user_name,
       user_pwd, status, user_create, 
       face_url, face_path)
@@ -39,7 +39,7 @@
       #{userPwd,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{userCreate,jdbcType=TIMESTAMP}, 
       #{faceUrl,jdbcType=VARCHAR}, #{facePath,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Gusers" >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Gusers" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id" >
     insert into gusers
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >

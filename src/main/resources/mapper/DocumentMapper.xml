@@ -29,20 +29,17 @@
     delete from document
     where document_id = #{documentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Document" >
-    insert into document (document_id, user_id, document_title, 
+  <insert id="insert" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyProperty="documentId" keyColumn="document_id" >
+    insert into document (user_id, document_title,
       docement_name, docement_remark, document_create
       )
-    values (#{documentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{documentTitle,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{documentTitle,jdbcType=VARCHAR},
       #{docementName,jdbcType=VARCHAR}, #{docementRemark,jdbcType=VARCHAR}, #{documentCreate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Document" >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyProperty="documentId" keyColumn="document_id"  >
     insert into document
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="documentId != null" >
-        document_id,
-      </if>
       <if test="userId != null" >
         user_id,
       </if>
@@ -60,9 +57,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="documentId != null" >
-        #{documentId,jdbcType=INTEGER},
-      </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>

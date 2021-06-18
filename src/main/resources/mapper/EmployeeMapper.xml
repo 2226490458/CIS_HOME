@@ -64,7 +64,7 @@
     delete from employee
     where employee_id = #{employeeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Employee" keyProperty="employee_id" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.example.demo.entity.Employee" keyProperty="employeeId" useGeneratedKeys="true" keyColumn="employee_id">
     insert into employee (job_id, dept_id, employee_name, card_id, address, post_card, tel, phone, qq_num, emal,
     sex, party, birthday, race, education, speciality, hobby, remark, employee_create
       )
@@ -76,7 +76,7 @@
       #{hobby}, #{remark}, #{employeeCreate}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Employee">
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Employee" useGeneratedKeys="true" keyProperty="employeeId" keyColumn="employee_id">
     insert into employee
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="jobId != null">

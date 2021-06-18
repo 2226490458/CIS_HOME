@@ -21,10 +21,10 @@
     delete from facekey
     where faceid = #{faceid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Facekey" >
-    insert into facekey (faceid, appid, apikey, 
+  <insert id="insert" parameterType="com.example.demo.entity.Facekey" useGeneratedKeys="true" keyProperty="faceid" keyColumn="faceid" >
+    insert into facekey (appid, apikey,
       secretkey, threshold)
-    values (#{faceid,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR}, #{apikey,jdbcType=VARCHAR}, 
+    values (#{appid,jdbcType=VARCHAR}, #{apikey,jdbcType=VARCHAR},
       #{secretkey,jdbcType=VARCHAR}, #{threshold,jdbcType=INTEGER})
   </insert>
 <!--  <insert id="insertSelective" parameterType="com.example.demo.entity.Facekey" >-->

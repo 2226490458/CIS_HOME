@@ -26,13 +26,13 @@
     delete from job
     where job_id = #{jobId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.Job" keyProperty="job_id" useGeneratedKeys="true" >
+  <insert id="insert" parameterType="com.example.demo.entity.Job" keyProperty="jobId" useGeneratedKeys="true" keyColumn="job_id" >
     insert into job (job_name, job_remark
       )
     values (#{jobName,jdbcType=VARCHAR}, #{jobRemark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Job" >
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Job" useGeneratedKeys="true" keyProperty="jobId" keyColumn="job_id" >
     insert into job
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="jobId != null" >
