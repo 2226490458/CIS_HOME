@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Employee">
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+    <result column="job_id" jdbcType="INTEGER" property="jobId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="post_card" jdbcType="VARCHAR" property="postCard" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="qq_num" jdbcType="VARCHAR" property="qqNum" />
+    <result column="emal" jdbcType="VARCHAR" property="emal" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="party" jdbcType="VARCHAR" property="party" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="race" jdbcType="VARCHAR" property="race" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="speciality" jdbcType="VARCHAR" property="speciality" />
+    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="employee_create" jdbcType="TIMESTAMP" property="employeeCreate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    employee_id, job_id, dept_id, employee_name, card_id, address, post_card, tel, phone, qq_num, emal,
+    sex, party, birthday, race, education, speciality, hobby, remark, employee_create
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </select>
+  <select id="listOfEmp" resultType="com.example.demo.entity.Employee">
+    select
+    <include refid="Base_Column_List"/>
+    from employee
+    <where>
+      <if test="jobId != null">
+        job_id = #{jobId}
+      </if>
+      <if test="sex != null">
+        and sex = #{sex}
+      </if>
+      <if test="employeeName != null">
+        and employee_name = #{employeeName}
+      </if>
+      <if test="phone != null">
+        and phone = #{phone}
+      </if>
+      <if test="cardId != null">
+        and card_id = #{cardId}
+      </if>
+      <if test="deptId != null">
+        and dept_id =#{deptId}
+      </if>
+    </where>
+    limit #{page}, #{size}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.demo.entity.EmployeeKey">
+    delete from employee
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Employee" keyProperty="employee_id" useGeneratedKeys="true">
+    insert into employee (job_id, dept_id, employee_name, card_id, address, post_card, tel, phone, qq_num, emal,
+    sex, party, birthday, race, education, speciality, hobby, remark, employee_create
+      )
+    values (#{jobId}, #{deptId}, #{employeeName},
+      #{cardId}, #{address}, #{postCard}, #{tel},
+      #{phone}, #{qqNum}, #{emal},
+      #{sex}, #{party}, #{birthday},
+      #{race}, #{education}, #{speciality},
+      #{hobby}, #{remark}, #{employeeCreate}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Employee">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="deptId != null">
+        dept_id,
+      </if>
+      <if test="employeeName != null">
+        employee_name,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="postCard != null">
+        post_card,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="qqNum != null">
+        qq_num,
+      </if>
+      <if test="emal != null">
+        emal,
+      </if>
+      <if test="sex != null">
+
+      sex,
+      </if>
+      <if test="party != null">
+       party,
+
+      </if>
+      <if test="birthday != null">
+       birthday,
+      </if>
+      <if test="race != null">
+       race,
+
+      </if>
+      <if test="education != null">
+        education,
+
+      </if>
+      <if test="speciality != null">
+        speciality,
+
+      </if>
+      <if test="hobby != null">
+        hobby,
+
+      </if>
+      <if test="remark != null">
+        remark,
+
+      </if>
+      <if test="employeeCreate != null">
+        employee_create
+
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        #{jobId},
+      </if>
+      <if test="deptId != null">
+        #{deptId},
+      </if>
+      <if test="employeeName != null">
+        #{employeeName},
+      </if>
+      <if test="cardId != null">
+        #{cardId},
+      </if>
+      <if test="address != null">
+        #{address},
+      </if>
+      <if test="postCard != null">
+        #{postCard},
+      </if>
+      <if test="tel != null">
+        #{tel},
+      </if>
+      <if test="phone != null">
+        #{phone},
+      </if>
+      <if test="qqNum != null">
+        #{qqNum},
+      </if>
+      <if test="emal != null">
+        #{emal},
+      </if>
+      <if test="sex != null">
+
+        #{sex},
+      </if>
+      <if test="party != null">
+        #{party},
+
+      </if>
+      <if test="birthday != null">
+        #{birthday},
+      </if>
+      <if test="race != null">
+        #{race},
+
+      </if>
+      <if test="education != null">
+        #{education},
+
+      </if>
+      <if test="speciality != null">
+        #{speciality},
+
+      </if>
+      <if test="hobby != null">
+        #{hobby},
+
+      </if>
+      <if test="remark != null">
+        #{remark},
+
+      </if>
+      <if test="employeeCreate != null">
+        #{employeeCreate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Employee">
+    update employee
+    <set>
+      <if test="jobId != null">
+        job_id=#{jobId},
+      </if>
+      <if test="deptId != null">
+        dept_id=#{deptId},
+      </if>
+      <if test="employeeName != null">
+        employee_name=#{employeeName},
+      </if>
+      <if test="cardId != null">
+        card_id=#{cardId},
+      </if>
+      <if test="address != null">
+        address=#{address},
+      </if>
+      <if test="postCard != null">
+        post_card=#{postCard},
+      </if>
+      <if test="tel != null">
+        tel=#{tel},
+      </if>
+      <if test="phone != null">
+        phone=#{phone},
+      </if>
+      <if test="qqNum != null">
+        qqNum=#{qqNum},
+      </if>
+      <if test="emal != null">
+        emal=#{emal},
+      </if>
+      <if test="sex != null">
+
+        sex=#{sex},
+      </if>
+      <if test="party != null">
+        party=#{party},
+
+      </if>
+      <if test="birthday != null">
+        birthday=#{birthday},
+      </if>
+      <if test="race != null">
+        race=#{race},
+
+      </if>
+      <if test="education != null">
+        education=#{education},
+
+      </if>
+      <if test="speciality != null">
+        speciality=#{speciality},
+
+      </if>
+      <if test="hobby != null">
+        hobby=#{hobby},
+
+      </if>
+      <if test="remark != null">
+        remark=#{remark},
+
+      </if>
+      <if test="employeeCreate != null">
+        employee_create= #{employeeCreate},
+      </if>
+    </set>
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </update>
+</mapper>

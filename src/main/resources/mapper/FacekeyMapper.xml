@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.FacekeyMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Facekey" >
+    <id column="faceid" property="faceid" jdbcType="INTEGER" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="apikey" property="apikey" jdbcType="VARCHAR" />
+    <result column="secretkey" property="secretkey" jdbcType="VARCHAR" />
+    <result column="threshold" property="threshold" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    faceid, appid, apikey, secretkey, threshold
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from facekey
+    where faceid = #{faceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from facekey
+    where faceid = #{faceid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Facekey" >
+    insert into facekey (faceid, appid, apikey, 
+      secretkey, threshold)
+    values (#{faceid,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR}, #{apikey,jdbcType=VARCHAR}, 
+      #{secretkey,jdbcType=VARCHAR}, #{threshold,jdbcType=INTEGER})
+  </insert>
+<!--  <insert id="insertSelective" parameterType="com.example.demo.entity.Facekey" >-->
+<!--    insert into facekey-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="faceid != null" >-->
+<!--        faceid,-->
+<!--      </if>-->
+<!--      <if test="appid != null" >-->
+<!--        appid,-->
+<!--      </if>-->
+<!--      <if test="apikey != null" >-->
+<!--        apikey,-->
+<!--      </if>-->
+<!--      <if test="secretkey != null" >-->
+<!--        secretkey,-->
+<!--      </if>-->
+<!--      <if test="threshold != null" >-->
+<!--        threshold,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="faceid != null" >-->
+<!--        #{faceid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="appid != null" >-->
+<!--        #{appid,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="apikey != null" >-->
+<!--        #{apikey,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="secretkey != null" >-->
+<!--        #{secretkey,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="threshold != null" >-->
+<!--        #{threshold,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Facekey" >
+    update facekey
+    <set >
+      <if test="appid != null" >
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="apikey != null" >
+        apikey = #{apikey,jdbcType=VARCHAR},
+      </if>
+      <if test="secretkey != null" >
+        secretkey = #{secretkey,jdbcType=VARCHAR},
+      </if>
+      <if test="threshold != null" >
+        threshold = #{threshold,jdbcType=INTEGER},
+      </if>
+    </set>
+    where faceid = #{faceid,jdbcType=INTEGER}
+  </update>
+<!--  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Facekey" >-->
+<!--    update facekey-->
+<!--    set appid = #{appid,jdbcType=VARCHAR},-->
+<!--      apikey = #{apikey,jdbcType=VARCHAR},-->
+<!--      secretkey = #{secretkey,jdbcType=VARCHAR},-->
+<!--      threshold = #{threshold,jdbcType=INTEGER}-->
+<!--    where faceid = #{faceid,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

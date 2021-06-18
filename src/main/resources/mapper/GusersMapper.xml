@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.GusersMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Gusers" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="user_create" property="userCreate" jdbcType="TIMESTAMP" />
+    <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
+    <result column="face_path" property="facePath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, login_name, user_name, user_pwd, status, user_create, face_url, face_path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gusers
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="listOfUser" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gusers
+    where user_name = #{username, jdbcType=VARCHAR} and status = #{status, jdbcType=VARCHAR}
+    limit #{page, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gusers
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Gusers" keyProperty="user_id" useGeneratedKeys="true" >
+    insert into gusers (login_name, user_name,
+      user_pwd, status, user_create, 
+      face_url, face_path)
+    values (#{loginName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+      #{userPwd,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{userCreate,jdbcType=TIMESTAMP}, 
+      #{faceUrl,jdbcType=VARCHAR}, #{facePath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Gusers" >
+    insert into gusers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="userCreate != null" >
+        user_create,
+      </if>
+      <if test="faceUrl != null" >
+        face_url,
+      </if>
+      <if test="facePath != null" >
+        face_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userCreate != null" >
+        #{userCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faceUrl != null" >
+        #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="facePath != null" >
+        #{facePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Gusers" >
+    update gusers
+    <set >
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userCreate != null" >
+        user_create = #{userCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faceUrl != null" >
+        face_url = #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="facePath != null" >
+        face_path = #{facePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Gusers" >
+    update gusers
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      user_create = #{userCreate,jdbcType=TIMESTAMP},
+      face_url = #{faceUrl,jdbcType=VARCHAR},
+      face_path = #{facePath,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
