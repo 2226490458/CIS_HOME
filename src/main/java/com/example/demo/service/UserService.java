@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.mapper.DeptMapper;
-import com.example.demo.mapper.GusersMapper;
+import com.example.demo.mapper.CusersMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,5 +12,5 @@ import javax.annotation.Resource;
 @Service
 public class UserService {
     @Resource
-    private GusersMapper userMapper;
+    private CusersMapper userMapper;
 }
