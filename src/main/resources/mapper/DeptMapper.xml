@@ -20,7 +20,7 @@
     select
     <include refid="Base_Column_List"/>
     from dept
-    where dept_name like #{deptName, jdbcType=VARCHAR}
+    where dept_name like #{deptName, jdbcType=VARCHAR} and dept_status = 1
     limit #{page, jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

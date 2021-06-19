@@ -51,8 +51,9 @@
     join dept on employee.dept_id = dept.dept_id
     join job on employee.job_id = job.job_id
     <where>
+      employee_status = 1
       <if test="jobId != null">
-        employee.job_id = #{jobId}
+        and employee.job_id = #{jobId}
       </if>
       <if test="sex != null">
         and sex = #{sex}

@@ -28,8 +28,9 @@
     <include refid="Base_Column_List" />
     from cusers
     <where>
+        user_status = 1
       <if test="username != null">
-        user_name like #{username, jdbcType=VARCHAR}
+        and user_name like #{username, jdbcType=VARCHAR}
       </if>
       <if test="status != null">
         and status = #{status, jdbcType=VARCHAR}

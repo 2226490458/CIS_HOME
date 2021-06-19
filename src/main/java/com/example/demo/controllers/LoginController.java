@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.common.CommonResult;
 import com.example.demo.service.LoginService;
+import com.example.demo.vos.dept.DeptQueryVO;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,9 @@ public class LoginController {
     }
 
     @GetMapping("/test")
-    public String hello() {
-        return "hello world";
+    public CommonResult<Object> hello(DeptQueryVO queryVO) {
+        System.out.println(queryVO);
+        return CommonResult.success(queryVO);
     }
+
 }

@@ -32,8 +32,9 @@
     from notice
     join cusers on notice.user_id = cusers.user_id
     <where>
+      notice_status = 1
       <if test="noticeTitle != null">
-        notice_title like #{noticeTitle}
+        and notice_title like #{noticeTitle}
       </if>
       <if test="noticeContent != null">
         and notice_content like #{noticeContent}
