@@ -5,6 +5,7 @@ import com.baidu.aip.face.AipFace;
 import com.baidu.aip.face.MatchRequest;
 import com.example.demo.common.BaiduAIPCommon;
 import com.example.demo.common.CommonResult;
+import com.example.demo.entity.Cusers;
 import com.example.demo.mapper.CusersMapper;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
@@ -28,14 +29,21 @@ public class LoginService {
     private CusersMapper loginMapper;
 
     public CommonResult<Object> loginWithNameAndPsw(LoginVO loginVO) {
-        return null;
+        Cusers user = loginMapper.selectByUsername(loginVO.getUsername());
+        if (user == null) {
+            return CommonResult.fail("用户或密码错误");
+        }
+        if (!user.getUserPwd().equals(loginVO.getPassword())) {
+            return CommonResult.fail("用户名或密码错误");
+        }
+        return CommonResult.success(user);
     }
 
     public CommonResult<Object> loginWidthFace(LoginFaceVO faceVO) {
         // 初始化一个AipFace
         AipFace client = new AipFace(BaiduAIPCommon.APP_FACE_ID, BaiduAIPCommon.API_FACE_KEY, BaiduAIPCommon.SECRET_FACE_KEY);
         try {
-            File localFace = new File("C:/Users/青菜白玉堂/Desktop/相片/DSC_0001.jpg");
+            File localFace = new File("D:\\20210616\\face.png");
             byte[] buf2 = FileUtils.readFileToByteArray(localFace);
 
             //BASE64编码

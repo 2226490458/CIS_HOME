@@ -23,7 +23,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public CommonResult<Object> login(@RequestBody LoginVO loginVO) {
-        return null;
+        return loginService.loginWithNameAndPsw(loginVO);
     }
 
     @PostMapping("/face_login")
@@ -38,5 +38,7 @@ public class LoginController {
         System.out.println(queryVO);
         return CommonResult.success(queryVO);
     }
+
+
 
 }

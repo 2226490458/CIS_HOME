@@ -34,6 +34,9 @@ public interface CusersMapper {
      */
     Cusers selectByPrimaryKey(Integer userId);
 
+
+    Cusers selectByUsername(String loginName);
+
     /**
      * 分页查询用户
      * @param query 查询条件

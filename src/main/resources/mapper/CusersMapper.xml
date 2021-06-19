@@ -38,7 +38,13 @@
     </where>
     limit #{page, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByUsername" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from cusers
+      where login_name = #{loginName}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from cusers
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
