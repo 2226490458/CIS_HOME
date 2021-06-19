@@ -40,6 +40,8 @@ public interface DeptMapper {
      */
     List<Dept> listOfDept(DeptQueryVO query);
 
+    List<Dept> listOfDeptNameToID();
+
     /**
      * 更新部门信息 （选择性更新）
      * @param record 要更新的部门信息
