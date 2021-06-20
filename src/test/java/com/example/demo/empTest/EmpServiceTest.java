@@ -51,7 +51,8 @@ public class EmpServiceTest {
     @Test
     public void deleteEmployeeTest(){
         List<Integer> ids = new ArrayList<>();
-        ids.add(8);
+        ids.add(2);
+        ids.add(3);
         EmpDeleteVO empDeleteVO = new EmpDeleteVO();
         empDeleteVO.setIds(ids);
         CommonResult<Object> objectCommonResult = empService.deleteEmployee(empDeleteVO);

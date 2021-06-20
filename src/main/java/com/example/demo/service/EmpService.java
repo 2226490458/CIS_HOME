@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.common.CommonResult;
+import com.example.demo.common.entityEnum.RecordExistEnum;
 import com.example.demo.dtos.EmpDTO;
 import com.example.demo.entity.Employee;
 import com.example.demo.mapper.DeptMapper;
@@ -61,8 +62,11 @@ public class EmpService {
      * @return 结果
      */
     public CommonResult<Object> deleteEmployee(EmpDeleteVO empDeleteVO){
+        Employee employee = new Employee();
         for (Integer id : empDeleteVO.getIds()) {
-            int code = employeeMapper.deleteByPrimaryKey(id);
+            employee.setEmployeeId(id);
+            employee.setEmployeeStatus(RecordExistEnum.miss.getCode());
+            int code = employeeMapper.updateByPrimaryKeySelective(employee);
             if (code != 1){
                 return CommonResult.fail("删除失败");
             }

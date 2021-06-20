@@ -52,6 +52,11 @@ public class EmpMangeController {
         return empService.modifyEmployee(employee);
     }
 
+    /**
+     * 删除员工
+     * @param empDeleteVO 员工ID集合
+     * @return 结果
+     */
     @PostMapping("/deleteEmployee")
     public CommonResult<Object> deleteEmployee(@RequestBody EmpDeleteVO empDeleteVO){
         return empService.deleteEmployee(empDeleteVO);
