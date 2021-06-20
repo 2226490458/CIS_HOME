@@ -13,7 +13,7 @@ public class JobSettingDTO {
     @Override
     public String toString() {
         return "JobSettingDTO{" +
-                "JobName='" + jobName + '\'' +
+                "jobName='" + jobName + '\'' +
                 ", code=" + code +
                 '}';
     }
@@ -23,7 +23,7 @@ public class JobSettingDTO {
     }
 
     public void setJobName(String jobName) {
-        jobName = jobName;
+        this.jobName = jobName;
     }
 
     public Integer getCode() {

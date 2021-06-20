@@ -30,11 +30,11 @@ public class SysSettingService {
     private DeptMapper deptMapper;
 
     /**
-     * 获取职位的配置信息
+     * 获取职位的信息（jobName， id）
      * @return
      */
-    public CommonResult<Object> getJobNameToId() {
-        List<Job> jobList = jobMapper.listOfJobNameToId();
+    public CommonResult<Object> getJobNameAndId() {
+        List<Job> jobList = jobMapper.listOfJobNameAndId();
         List<JobSettingDTO> settingDTOList = new ArrayList<>();
         jobList.forEach(job -> {
             JobSettingDTO jobSettingDTO = new JobSettingDTO();
@@ -46,10 +46,10 @@ public class SysSettingService {
     }
 
     /**
-     * 获取部门编号和名称
+     * 获取部门编号和名称（deptName， id）
      * @return
      */
-    public CommonResult<Object> listOfDeptNameToId() {
+    public CommonResult<Object> listOfDeptNameAndId() {
         List<Dept> deptList = deptMapper.listOfDeptNameToID();
         List<DeptSettingDTO> settingDTOList = new ArrayList<>();
         deptList.forEach(dept -> {
@@ -62,10 +62,10 @@ public class SysSettingService {
     }
 
     /**
-     * 获取用户权限的配置信息
+     * 获取用户权限信息(permName，code)
      * @return
      */
-    public CommonResult<Object> getUserPerm() {
+    public CommonResult<Object> listOfUserPermAndCode() {
         List<UserPermDTO> result = new ArrayList<>();
         for (PermEnum perm:PermEnum.values()) {
             UserPermDTO userPermDTO = new UserPermDTO();

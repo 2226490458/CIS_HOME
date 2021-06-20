@@ -7,17 +7,20 @@ import com.example.demo.common.BaiduAIPCommon;
 import com.example.demo.common.CommonResult;
 import com.example.demo.entity.Cusers;
 import com.example.demo.mapper.CusersMapper;
+import com.example.demo.vos.FaceVO;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * @author 青菜白玉堂
@@ -27,6 +30,7 @@ import java.util.Base64;
 public class LoginService {
     @Resource
     private CusersMapper loginMapper;
+
 
     public CommonResult<Object> loginWithNameAndPsw(LoginVO loginVO) {
         Cusers user = loginMapper.selectByUsername(loginVO.getUsername());
@@ -43,7 +47,7 @@ public class LoginService {
         // 初始化一个AipFace
         AipFace client = new AipFace(BaiduAIPCommon.APP_FACE_ID, BaiduAIPCommon.API_FACE_KEY, BaiduAIPCommon.SECRET_FACE_KEY);
         try {
-            File localFace = new File("D:\\20210616\\face.png");
+            File localFace = new File("D:\\20210616\\face_images\\images\\face.png");
             byte[] buf2 = FileUtils.readFileToByteArray(localFace);
 
             //BASE64编码
@@ -71,9 +75,9 @@ public class LoginService {
 
 
     private File multipartFileToFile(MultipartFile file) throws IOException {
-
+        Object empty = "";
         File toFile = null;
-        if (file.equals("") || file.getSize() <= 0) {
+        if (file.equals(empty) || file.getSize() <= 0) {
             file = null;
         } else {
             InputStream ins = null;
@@ -98,5 +102,44 @@ public class LoginService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public CommonResult<Object> registerFace(FaceVO faceVO) {
+        String staticPath = "D:\\20210616\\face_images";
+        MultipartFile file = faceVO.getFile();
+
+
+        String fileName = file.getOriginalFilename();
+
+        // 图片存储目录及图片名称
+        String urlPath = "images" + File.separator + "cis_face-" + faceVO.getUserId() + "_" + fileName;
+        //图片保存路径
+        String savePath = staticPath + File.separator + urlPath;
+        System.out.println("图片保存地址："+savePath);
+        // 访问路径=静态资源路径+文件目录路径
+        String visitPath ="static\\" + urlPath;
+        System.out.println("图片访问uri："+visitPath);
+
+        File saveFile = new File(savePath);
+        if (!saveFile.exists()){
+            saveFile.mkdirs();
+        }
+        try {
+            // 将临时存储的文件移动到真实存储路径下
+            file.transferTo(saveFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return CommonResult.fail("服务端错误");
+        }
+        Cusers user = new Cusers();
+        user.setUserId(faceVO.getUserId());
+        user.setFacePath(savePath);
+        user.setFaceUrl(visitPath);
+        int code = loginMapper.updateByPrimaryKeySelective(user);
+        if (code == 0) {
+            return CommonResult.fail("人脸注册失败");
+        }
+        return CommonResult.success("人脸注册成功");
     }
 }

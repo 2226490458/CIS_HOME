@@ -22,16 +22,16 @@ public class SystemController {
 
     @GetMapping("/job_setting")
     public CommonResult<Object> getJobSetting() {
-        return  sysSettingService.getJobNameToId();
+        return  sysSettingService.getJobNameAndId();
     }
 
     @GetMapping("/user_perm")
     public CommonResult<Object> getUserPerm() {
-        return sysSettingService.getUserPerm();
+        return sysSettingService.listOfUserPermAndCode();
     }
 
     @GetMapping("/dept_setting")
     public CommonResult<Object> getDeptSettings() {
-        return sysSettingService.listOfDeptNameToId();
+        return sysSettingService.listOfDeptNameAndId();
     }
 }

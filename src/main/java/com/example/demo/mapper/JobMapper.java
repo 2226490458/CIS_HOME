@@ -45,7 +45,7 @@ public interface JobMapper {
      * 查询所有职位
      * @return
      */
-    List<Job> listOfJobNameToId();
+    List<Job> listOfJobNameAndId();
 
     /**
      * 更新职位信息（选择性更新）

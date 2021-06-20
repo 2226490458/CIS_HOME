@@ -23,7 +23,7 @@
     where job_name like #{jobName} and job_status = 1
     limit #{page}, #{size}
   </select>
-    <select id="listOfJobNameToId" resultMap="BaseResultMap">
+    <select id="listOfJobNameAndId" resultMap="BaseResultMap">
       select
       <include refid="Base_Column_List" />
       from job
