@@ -44,6 +44,12 @@
       from cusers
       where login_name = #{loginName}
     </select>
+    <select id="listUserInfo" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from cusers
+      where user_status = 1
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from cusers
     where user_id = #{userId,jdbcType=INTEGER}

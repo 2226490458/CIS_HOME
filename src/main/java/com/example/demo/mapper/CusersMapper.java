@@ -44,6 +44,13 @@ public interface CusersMapper {
      */
     List<Cusers> listOfUser(UserQueryVO query);
 
+
+    /**
+     * 获取全部用户数据
+     * @return
+     */
+    List<Cusers> listUserInfo();
+
     /**
      * 更新用户信息
      * @param record 新的用户数据

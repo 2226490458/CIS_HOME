@@ -1,26 +1,24 @@
 package com.example.demo.service;
 
 
-import com.baidu.aip.face.AipFace;
-import com.baidu.aip.face.MatchRequest;
-import com.example.demo.common.BaiduAIPCommon;
+
 import com.example.demo.common.CommonResult;
 import com.example.demo.entity.Cusers;
 import com.example.demo.mapper.CusersMapper;
+import com.example.demo.utils.FaceClient;
+import com.example.demo.utils.FileUtil;
 import com.example.demo.vos.FaceVO;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
+
 import org.apache.commons.io.FileUtils;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Objects;
+import java.util.List;
+
 
 /**
  * @author 青菜白玉堂
@@ -44,31 +42,17 @@ public class LoginService {
     }
 
     public CommonResult<Object> loginWidthFace(LoginFaceVO faceVO) {
-        // 初始化一个AipFace
-        AipFace client = new AipFace(BaiduAIPCommon.APP_FACE_ID, BaiduAIPCommon.API_FACE_KEY, BaiduAIPCommon.SECRET_FACE_KEY);
-        try {
-            File localFace = new File("D:\\20210616\\face_images\\images\\face.png");
-            byte[] buf2 = FileUtils.readFileToByteArray(localFace);
-
-            //BASE64编码
-            String image1 = faceVO.getBase64Image();
-            String image2 = Base64.getEncoder().encodeToString(buf2);
-
-            //将编码后的字符串放入MatchRequest
-            MatchRequest req1 = new MatchRequest(image1, "BASE64");
-            MatchRequest req2 = new MatchRequest(image2, "BASE64");
-
-            //两个request放入一个集合ArrayList中
-            ArrayList<MatchRequest> reqs = new ArrayList<>();
-            reqs.add(req1);
-            reqs.add(req2);
-
-            //AIP客户端做人脸对比
-            JSONObject res = client.match(reqs);
-            System.out.println(res);
-            return CommonResult.success(res.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
+        List<Cusers> userList = loginMapper.listUserInfo();
+        FaceClient client = FaceClient.getInstance();
+        for (Cusers user: userList) {
+            if (user.getFacePath() != null && !"".equals(user.getFacePath())) {
+                String base1 = FileUtil.getImageStr(user.getFacePath());
+                System.out.println(base1);
+                boolean isMatch = client.faceCompare(faceVO.getBase64Image(), base1);
+                if (isMatch) {
+                    return CommonResult.success(user);
+                }
+            }
         }
         return CommonResult.fail("无法识别");
     }
