@@ -11,7 +11,6 @@ import com.example.demo.vos.FaceVO;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +29,11 @@ public class LoginService {
     private CusersMapper loginMapper;
 
 
+    /**
+     * 账号密码登录
+     * @param loginVO
+     * @return
+     */
     public CommonResult<Object> loginWithNameAndPsw(LoginVO loginVO) {
         Cusers user = loginMapper.selectByUsername(loginVO.getUsername());
         if (user == null) {
@@ -41,51 +45,29 @@ public class LoginService {
         return CommonResult.success(user);
     }
 
+    /**
+     * 刷脸登录
+     * @param faceVO 脸部数据
+     * @return
+     */
     public CommonResult<Object> loginWidthFace(LoginFaceVO faceVO) {
-        List<Cusers> userList = loginMapper.listUserInfo();
-        FaceClient client = FaceClient.getInstance();
-        for (Cusers user: userList) {
-            if (user.getFacePath() != null && !"".equals(user.getFacePath())) {
-                String base1 = FileUtil.getImageStr(user.getFacePath());
-                System.out.println(base1);
-                boolean isMatch = client.faceCompare(faceVO.getBase64Image(), base1);
-                if (isMatch) {
-                    return CommonResult.success(user);
+        try {
+            List<Cusers> userList = loginMapper.listUserInfo();
+            FaceClient client = FaceClient.getInstance();
+            for (Cusers user: userList) {
+                if (user.getFacePath() != null && !"".equals(user.getFacePath())) {
+                    String base1 = FileUtil.getImageStr(user.getFacePath());
+                    String base2 = FileUtil.convertFileToBase64(FileUtil.convertFile(faceVO.getFaceImage()));
+                    boolean isMatch = client.faceCompare(base2, base1);
+                    if (isMatch) {
+                        return CommonResult.success(user);
+                    }
                 }
             }
-        }
-        return CommonResult.fail("无法识别");
-    }
-
-
-    private File multipartFileToFile(MultipartFile file) throws IOException {
-        Object empty = "";
-        File toFile = null;
-        if (file.equals(empty) || file.getSize() <= 0) {
-            file = null;
-        } else {
-            InputStream ins = null;
-            ins = file.getInputStream();
-            toFile = new File(file.getOriginalFilename());
-            inputStreamToFile(ins, toFile);
-            ins.close();
-        }
-        return toFile;
-    }
-
-    private void inputStreamToFile(InputStream ins, File file) {
-        try {
-            OutputStream os = new FileOutputStream(file);
-            int bytesRead = 0;
-            byte[] buffer = new byte[8192];
-            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-            os.close();
-            ins.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        return CommonResult.fail("无法识别");
     }
 
 

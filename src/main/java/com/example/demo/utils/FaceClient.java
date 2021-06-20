@@ -58,7 +58,7 @@ public class FaceClient {
         JSONObject res = client.match(reqs);
         System.out.println(res);
         if(res != null && !res.toString().equals("")){
-            if(res.get("result") != null && !res.get("result").toString().equals("")){
+            if(res.get("result") != null && !(res.get("result").toString().equals("") || res.get("result").toString().equals("null"))){
                 JSONObject result = (JSONObject) res.get("result");
                 double score = result.getDouble("score");
                 return score >= 90;

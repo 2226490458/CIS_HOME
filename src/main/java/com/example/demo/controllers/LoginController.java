@@ -29,8 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/face_login")
-    public CommonResult<Object> loginWithFace(@RequestBody LoginFaceVO faceVO) {
-        System.out.println(faceVO);
+    public CommonResult<Object> loginWithFace(LoginFaceVO faceVO) {
         return loginService.loginWidthFace(faceVO);
     }
 
