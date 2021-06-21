@@ -5,20 +5,44 @@ package com.example.demo.vos.job;
  * @create 2021-06-17
  */
 public class JobFixVO extends JobAddVO {
-    private Integer jobStatus;
+    private String jobName;
+    private String jobRemark;
+    private Integer jobId;//新增
 
     @Override
     public String toString() {
         return "JobFixVO{" +
-                "jobStatus=" + jobStatus +
+                "jobName='" + jobName + '\'' +
+                ", jobRemark='" + jobRemark + '\'' +
+                ", jobId=" + jobId +
                 '}';
     }
 
-    public Integer getJobStatus() {
-        return jobStatus;
+    @Override
+    public String getJobName() {
+        return jobName;
     }
 
-    public void setJobStatus(Integer jobStatus) {
-        this.jobStatus = jobStatus;
+    @Override
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
+
+    @Override
+    public String getJobRemark() {
+        return jobRemark;
+    }
+
+    @Override
+    public void setJobRemark(String jobRemark) {
+        this.jobRemark = jobRemark;
+    }
+
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
     }
 }

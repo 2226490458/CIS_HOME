@@ -6,7 +6,6 @@ package com.example.demo.vos.job;
  */
 public class JobAddVO {
     private String jobName;
-
     private String jobRemark;
 
     @Override
