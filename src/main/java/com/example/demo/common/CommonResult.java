@@ -34,7 +34,7 @@ public class CommonResult<T> {
     }
 
     public static CommonResult<Object> fail(String message) {
-        CommonResult<Object> result = new CommonResult<>(new Date(), 435);
+        CommonResult<Object> result = new CommonResult<>(new Date(), 415);
         result.setMessage(message);
         return result;
     }
