@@ -25,7 +25,7 @@ public class SystemController {
         return  sysSettingService.getJobNameAndId();
     }
 
-    @GetMapping("/user_perm")
+    @GetMapping("/authority_setting")
     public CommonResult<Object> getUserPerm() {
         return sysSettingService.listOfUserPermAndCode();
     }
