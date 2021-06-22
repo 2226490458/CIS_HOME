@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.common.CommonResult;
 import com.example.demo.service.LoginService;
+import com.example.demo.vos.FaceVO;
 import com.example.demo.vos.dept.DeptQueryVO;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
@@ -23,20 +24,19 @@ public class LoginController {
 
     @PostMapping("/login")
     public CommonResult<Object> login(@RequestBody LoginVO loginVO) {
-        return null;
+        System.out.println(loginVO);
+        return loginService.loginWithNameAndPsw(loginVO);
     }
 
     @PostMapping("/face_login")
-    public CommonResult<Object> loginWithFace(@RequestBody LoginFaceVO faceVO) {
-        System.out.println(faceVO);
+    public CommonResult<Object> loginWithFace(LoginFaceVO faceVO) {
         return loginService.loginWidthFace(faceVO);
-//        return CommonResult.success("成功");
     }
 
-    @GetMapping("/test")
-    public CommonResult<Object> hello(DeptQueryVO queryVO) {
-        System.out.println(queryVO);
-        return CommonResult.success(queryVO);
+    @PostMapping("/face_register")
+    public CommonResult<Object> saveFace(FaceVO faceVO) {
+        System.out.println(faceVO.getUserId());
+        System.out.println(faceVO.getFile().getOriginalFilename());
+        return loginService.registerFace(faceVO);
     }
-
 }

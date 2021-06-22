@@ -1,18 +1,20 @@
-package com.example.demo.vos.job;
+package com.example.demo.dtos.sys;
+
 
 /**
  * @author 青菜白玉堂
- * @create 2021-06-17
+ * @create 2021-06-19
+ * 职位配置类
  */
-public class JobAddVO {
+public class JobSettingDTO {
     private String jobName;
-    private String jobRemark;
+    private Integer code;
 
     @Override
     public String toString() {
-        return "JobAddVO{" +
+        return "JobSettingDTO{" +
                 "jobName='" + jobName + '\'' +
-                ", jobRemark='" + jobRemark + '\'' +
+                ", code=" + code +
                 '}';
     }
 
@@ -24,11 +26,11 @@ public class JobAddVO {
         this.jobName = jobName;
     }
 
-    public String getJobRemark() {
-        return jobRemark;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setJobRemark(String jobRemark) {
-        this.jobRemark = jobRemark;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

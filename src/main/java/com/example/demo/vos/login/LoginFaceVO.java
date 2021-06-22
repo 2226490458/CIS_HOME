@@ -1,25 +1,27 @@
 package com.example.demo.vos.login;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author 青菜白玉堂
  * @create 2021-06-18
  */
 
 public class LoginFaceVO {
-    private String base64Image;
+    private MultipartFile faceImage;
 
     @Override
     public String toString() {
         return "LoginFaceVO{" +
-                "base64Image='" + base64Image + '\'' +
+                "faceImage=" + faceImage +
                 '}';
     }
 
-    public String getBase64Image() {
-        return base64Image;
+    public MultipartFile getFaceImage() {
+        return faceImage;
     }
 
-    public void setBase64Image(String base64Image) {
-        this.base64Image = base64Image;
+    public void setFaceImage(MultipartFile faceImage) {
+        this.faceImage = faceImage;
     }
 }

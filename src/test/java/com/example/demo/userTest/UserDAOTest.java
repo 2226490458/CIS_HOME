@@ -7,6 +7,7 @@ import com.example.demo.mapper.CusersMapper;
 import com.example.demo.vos.user.UserQueryVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -54,5 +55,13 @@ public class UserDAOTest {
         user.setUserPwd("happy1+1");
         int code = cusersMapper.updateByPrimaryKeySelective(user);
         System.out.println(code);
+    }
+
+
+    @Test
+    public void selectByUsernameTest() {
+        Cusers user = cusersMapper.selectByUsername("hello");
+        assert user != null;
+        System.out.println(user.getLoginName());
     }
 }

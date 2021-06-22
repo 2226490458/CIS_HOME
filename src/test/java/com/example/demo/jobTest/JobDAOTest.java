@@ -6,6 +6,7 @@ import com.example.demo.vos.job.JobAddVO;
 import com.example.demo.vos.job.JobQueryVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,6 +39,15 @@ public class JobDAOTest {
         queryVO.setSize(10);
         List<Job> jobList = jobMapper.listOfJob(queryVO);
         System.out.println(jobList.size());
+    }
+
+    @Test
+    public void listOfJobNameAndId() {
+        List<Job> jobList = jobMapper.listOfJobNameAndId();
+        jobList.forEach(job -> {
+            System.out.println(job.getJobId());
+            System.out.println(job.getJobName());
+        });
     }
 
     @Test

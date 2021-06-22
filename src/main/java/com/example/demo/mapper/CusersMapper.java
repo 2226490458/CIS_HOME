@@ -34,12 +34,22 @@ public interface CusersMapper {
      */
     Cusers selectByPrimaryKey(Integer userId);
 
+
+    Cusers selectByUsername(String loginName);
+
     /**
      * 分页查询用户
      * @param query 查询条件
      * @return 某页的用户数据
      */
     List<Cusers> listOfUser(UserQueryVO query);
+
+
+    /**
+     * 获取全部用户数据
+     * @return
+     */
+    List<Cusers> listUserInfo();
 
     /**
      * 更新用户信息

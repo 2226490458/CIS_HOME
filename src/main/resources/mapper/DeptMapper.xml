@@ -20,18 +20,27 @@
     select
     <include refid="Base_Column_List"/>
     from dept
-    where dept_name like #{deptName, jdbcType=VARCHAR} and dept_status = 1
+    <where>
+      dept_status = 1
+        <if test="deptName != null">
+          and dept_name like #{deptName, jdbcType=VARCHAR}
+        </if>
+    </where>
     limit #{page, jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listOfDeptNameToID" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from dept
+      where dept_status = 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dept
     where dept_id = #{deptId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.demo.entity.Dept" useGeneratedKeys="true" keyColumn="dept_id" keyProperty="deptId" >
-    insert into dept (dept_name, dept_remark,
-      dept_status)
-    values (#{deptName,jdbcType=VARCHAR}, #{deptRemark,jdbcType=VARCHAR},
-      #{deptStatus,jdbcType=INTEGER})
+    insert into dept (dept_name, dept_remark,dept_status)
+    values (#{deptName,jdbcType=VARCHAR}, #{deptRemark,jdbcType=VARCHAR},#{deptStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.entity.Dept" useGeneratedKeys="true" keyColumn="dept_id" keyProperty="deptId" >
     insert into dept
