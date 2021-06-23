@@ -20,11 +20,11 @@ public class NoPermissionException {
 
     @ExceptionHandler(UnauthorizedException.class)
     public CommonResult<Object> handleShiroException(UnauthorizedException e) {
-        return CommonResult.fail(e.getMessage());
+        return CommonResult.fail("无权操作");
     }
 
     @ExceptionHandler(AuthorizationException.class)
     public CommonResult<Object> authorizationException(AuthorizationException e) {
-        return CommonResult.fail(e.getMessage());
+        return CommonResult.fail("无权操作");
     }
 }
