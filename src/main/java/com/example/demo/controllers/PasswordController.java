@@ -20,6 +20,7 @@ public class PasswordController {
     @Resource
     private PswService pswService;
 
+
     @PostMapping("/fix_psw")
     public CommonResult<Object> updateUserPsw(@RequestBody PasswordVO passwordVO) {
         return pswService.updateUserPsw(passwordVO);

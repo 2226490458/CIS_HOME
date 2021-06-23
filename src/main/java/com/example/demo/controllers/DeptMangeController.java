@@ -6,6 +6,7 @@ import com.example.demo.vos.dept.DeptAddVO;
 import com.example.demo.vos.dept.DeptDeleteVO;
 import com.example.demo.vos.dept.DeptFixVO;
 import com.example.demo.vos.dept.DeptQueryVO;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,12 @@ public class DeptMangeController {
         return deptService.getDept(deptQueryVO);
     }
 
-//    删除
+    /**
+     * 删除
+     * @param deptDeleteVO
+     * @return
+     */
+    @RequiresPermissions("user:admin")
     @PostMapping("/deleteDept")
     public CommonResult<Object> deleteDept(@RequestBody DeptDeleteVO deptDeleteVO) {
 
@@ -39,6 +45,7 @@ public class DeptMangeController {
     }
 
 //    修改
+    @RequiresPermissions("user:admin")
     @PostMapping("/updateDept")
     public CommonResult<Object> updateDept(@RequestBody DeptFixVO deptFixVO) {
 
@@ -46,6 +53,7 @@ public class DeptMangeController {
     }
 
 //    添加
+    @RequiresPermissions("user:admin")
     @PostMapping("/addDept")
     public CommonResult<Object> addDept(@RequestBody DeptAddVO deptAddVO) {
 
