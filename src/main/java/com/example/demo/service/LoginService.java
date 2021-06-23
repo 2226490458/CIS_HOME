@@ -3,20 +3,25 @@ package com.example.demo.service;
 
 
 import com.example.demo.common.CommonResult;
+import com.example.demo.dtos.LoginDTO;
 import com.example.demo.entity.Cusers;
 import com.example.demo.mapper.CusersMapper;
 import com.example.demo.utils.FaceClient;
 import com.example.demo.utils.FileUtil;
+import com.example.demo.utils.JwtUtil;
 import com.example.demo.vos.FaceVO;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -28,6 +33,12 @@ public class LoginService {
     @Resource
     private CusersMapper loginMapper;
 
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
+
+
+    @Value("${custom.jwt.expire_time}")
+    private long expireTime;
 
     /**
      * 账号密码登录
@@ -42,7 +53,7 @@ public class LoginService {
         if (!user.getUserPwd().equals(loginVO.getPassword())) {
             return CommonResult.fail("用户名或密码错误");
         }
-        return CommonResult.success(user);
+        return createLoginResponse(user);
     }
 
     /**
@@ -60,7 +71,7 @@ public class LoginService {
                     String base2 = FileUtil.convertFileToBase64(FileUtil.convertFile(faceVO.getFaceImage()));
                     boolean isMatch = client.faceCompare(base2, base1);
                     if (isMatch) {
-                        return CommonResult.success(user);
+                        return createLoginResponse(user);
                     }
                 }
             }
@@ -71,6 +82,11 @@ public class LoginService {
     }
 
 
+    /**
+     * 人脸注册
+     * @param faceVO
+     * @return
+     */
     public CommonResult<Object> registerFace(FaceVO faceVO) {
         String staticPath = "D:\\20210616\\face_images";
         MultipartFile file = faceVO.getFile();
@@ -106,6 +122,30 @@ public class LoginService {
         if (code == 0) {
             return CommonResult.fail("人脸注册失败");
         }
-        return CommonResult.success("人脸注册成功");
+        return createLoginResponse(user);
+    }
+
+
+    /**
+     * 退出登录
+     * @param token
+     * @return
+     */
+    public CommonResult<Object> logout(String token) {
+        redisTemplate.opsForValue().set(token, token, expireTime * 2 / 100, TimeUnit.SECONDS);
+        return CommonResult.success("退出登录成功");
+    }
+
+    /**
+     * 封装登录成功的数据
+     * @param user
+     * @return
+     */
+    private CommonResult<Object> createLoginResponse(Cusers user) {
+        String token = JwtUtil.sign(user.getLoginName(), user.getUserPwd());
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUser(user);
+        loginDTO.setToken(token);
+        return CommonResult.success(loginDTO);
     }
 }
