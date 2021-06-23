@@ -5,6 +5,7 @@ import com.example.demo.entity.Document;
 import com.example.demo.service.UploadService;
 import com.example.demo.vos.doc.DocDeleteVO;
 import com.example.demo.vos.doc.DocQueryVO;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,9 +42,9 @@ public class DocumentController {
     }
 
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/updateDocs")
     public CommonResult<Object> updateDocs(MultipartFile file, Document document) throws IOException{
-        init();
         if (file!=null){
             document.setDocumentName(file.getOriginalFilename());
             file.transferTo(new File(root, document.getDocumentName()));
@@ -51,12 +52,13 @@ public class DocumentController {
         return uploadService.updateDocs(document);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/updateDocsText")
     public CommonResult<Object> updateDocs(@RequestBody Document document) throws IOException{
-        init();
         return uploadService.updateDocs(document);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/addDocs")
     public CommonResult<Object> addDocs(MultipartFile file, Document document) throws IOException {
         init();
@@ -65,21 +67,19 @@ public class DocumentController {
         return uploadService.addDocs(document);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/deleteDocs")
     public CommonResult<Object> deleteDocs(@RequestBody DocDeleteVO deleteVO){
-        init();
         return uploadService.deleteDocs(deleteVO);
     }
 
     @GetMapping("/getDocs")
     public CommonResult<Object> getDocs(DocQueryVO queryVO){
-        init();
         return uploadService.getDocs(queryVO);
     }
 
     @PostMapping("/downLoad")
     public CommonResult<Object> downLoad(@RequestBody Document document){
-        init();
         String url = downloadUrl + document.getDocumentName();
         return CommonResult.success(url);
     }
