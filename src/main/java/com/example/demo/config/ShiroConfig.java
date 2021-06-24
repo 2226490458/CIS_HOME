@@ -53,6 +53,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/face_login", "anon");
         filterChainDefinitionMap.put("/sys/**", "anon");
+        filterChainDefinitionMap.put("/cis_doc/**", "anon");
 
         // 设置拦截的请求
         filterChainDefinitionMap.put("/**", "authc");
