@@ -1,6 +1,19 @@
 package com.example.demo.controllers;
 
+import com.example.demo.common.CommonResult;
+import com.example.demo.service.NoticeService;
+import com.example.demo.vos.notice.NoticeAddVO;
+import com.example.demo.vos.notice.NoticeDeleteVO;
+import com.example.demo.vos.notice.NoticeFixVO;
+import com.example.demo.vos.notice.NoticeQueryVO;
+import com.example.demo.vos.user.UserDeleteVO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+//import sun.tools.jconsole.inspector.XObject;
+
+import javax.annotation.Resource;
 
 /**
  * @author 青菜白玉堂
@@ -9,4 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class NoticeMangeController {
+    @Resource
+    private NoticeService noticeService;
+
+    @GetMapping("/getNotice")
+    public CommonResult<Object> getNotices(NoticeQueryVO queryVO){
+        return noticeService.getNotices(queryVO);
+    }
+
+    @PostMapping("/deleteNotice")
+    public CommonResult<Object> deleteNotices(@RequestBody NoticeDeleteVO deleteVO){
+        return noticeService.deleteNotices(deleteVO);
+    }
+
+    @PostMapping("/updateNotice")
+    public CommonResult<Object> updateNotices(@RequestBody NoticeFixVO fixVO){
+        return noticeService.updateNotices(fixVO);
+    }
+
+    @PostMapping("/addNotice")
+    public CommonResult<Object> addNotices(@RequestBody NoticeAddVO addVO){
+
+        return  noticeService.addNotices(addVO);
+    }
+
 }

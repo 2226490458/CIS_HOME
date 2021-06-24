@@ -5,8 +5,8 @@ package com.example.demo.common.entityEnum;
  * @create 2021-06-18
  */
 public enum PermEnum {
-    admin("ADMIN", 1),
-    common("COMMON", 2)
+    admin("管理员", 1),
+    common("普通用户", 2)
     ;
     private String name;
     private Integer code;

@@ -73,7 +73,10 @@
     </where>
     limit #{page}, #{size}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectEmpAmount" resultType="java.lang.Integer">
+      select COUNT(*) from employee where employee_status = 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employee
     where employee_id = #{employeeId,jdbcType=INTEGER}
   </delete>

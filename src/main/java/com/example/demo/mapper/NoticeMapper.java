@@ -43,6 +43,11 @@ public interface NoticeMapper {
     List<NoticeDTO> listOfNotice(NoticeQueryVO query);
 
     /**
+     * 查询公告总量
+     * @return
+     */
+    int selectNoticeAmount();
+    /**
      * 更新公告（选择性更新）
      * @param record 要更新的公告信息数据
      * @return 1 表示更新成功； 0 表示更新失败

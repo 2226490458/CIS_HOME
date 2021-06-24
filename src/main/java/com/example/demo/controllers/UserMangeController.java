@@ -1,6 +1,18 @@
 package com.example.demo.controllers;
 
+import com.example.demo.common.CommonResult;
+import com.example.demo.service.UserService;
+import com.example.demo.vos.notice.NoticeAddVO;
+import com.example.demo.vos.user.UserAddVO;
+import com.example.demo.vos.user.UserDeleteVO;
+import com.example.demo.vos.user.UserFixVO;
+import com.example.demo.vos.user.UserQueryVO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author 青菜白玉堂
@@ -9,4 +21,27 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UserMangeController {
+    @Resource
+    private UserService userService;
+
+    @GetMapping("/getUser")
+    public CommonResult<Object> getUsers(UserQueryVO queryVO){
+        return userService.getUser(queryVO);
+    }
+
+    @PostMapping("/deleteUser")
+    public CommonResult<Object> deleteUser(@RequestBody UserDeleteVO deleteVO){
+        return  userService.deleteUser(deleteVO);
+    }
+
+    @PostMapping("/updateUser")
+    public  CommonResult<Object> updateUser(UserFixVO fixVO){
+        return  userService.updateUsers(fixVO);
+    }
+
+    @PostMapping("/addUser")
+    public CommonResult<Object> addUser(@RequestBody UserAddVO addVO){
+
+        return  userService.addUsers(addVO);
+    }
 }
