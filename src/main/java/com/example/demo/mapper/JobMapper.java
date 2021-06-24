@@ -48,6 +48,11 @@ public interface JobMapper {
     List<Job> listOfJobNameAndId();
 
     /**
+     * 查职位总量
+     * @return
+     */
+    int selectJobAmount();
+    /**
      * 更新职位信息（选择性更新）
      * @param record 要更新的职位信息数据
      * @return 1 表示更新成功； 0 表示更新失败

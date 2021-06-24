@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.common.CommonResult;
+import com.example.demo.dtos.DocListDTO;
 import com.example.demo.entity.Document;
 import com.example.demo.mapper.DeptMapper;
 import com.example.demo.mapper.DocumentMapper;
@@ -28,7 +29,11 @@ public class UploadService {
      */
     public CommonResult<Object> getDocs(DocQueryVO queryVO){
         List<Document> documentList = documentMapper.listOfDocument(queryVO);
-        return CommonResult.success(documentList);
+        Integer amount = documentMapper.selectDocAmount();
+        DocListDTO listDTO = new DocListDTO();
+        listDTO.setList(documentList);
+        listDTO.setTotal(amount);
+        return CommonResult.success(listDTO);
     }
 
     /**

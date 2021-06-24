@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.common.CommonResult;
+import com.example.demo.dtos.JobListDTO;
 import com.example.demo.entity.Job;
 import com.example.demo.mapper.JobMapper;
 import com.example.demo.vos.job.JobAddVO;
@@ -24,7 +25,11 @@ public class JobService {
 
     public CommonResult<Object> getJobs(JobQueryVO queryVO){
         List<Job> jobList= jobMapper.listOfJob(queryVO);
-        return CommonResult.success(jobList);
+        int amount = jobMapper.selectJobAmount();
+        JobListDTO listDTO = new JobListDTO();
+        listDTO.setList(jobList);
+        listDTO.setTotal(amount);
+        return CommonResult.success(listDTO);
     }
 
     public CommonResult<Object> deleteJobs(JobDeleteVO deleteVO){

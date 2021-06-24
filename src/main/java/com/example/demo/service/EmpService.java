@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.common.CommonResult;
 import com.example.demo.common.entityEnum.RecordExistEnum;
 import com.example.demo.dtos.EmpDTO;
+import com.example.demo.dtos.EmpListDTO;
 import com.example.demo.entity.Employee;
 import com.example.demo.mapper.DeptMapper;
 import com.example.demo.mapper.EmployeeMapper;
@@ -41,7 +42,11 @@ public class EmpService {
      */
     public CommonResult<Object> listEmployee(EmpQueryVO empQueryVO){
         List<EmpDTO> empDTOS = employeeMapper.listOfEmp(empQueryVO);
-        return CommonResult.success(empDTOS);
+        int amount = employeeMapper.selectEmpAmount();
+        EmpListDTO listDTO = new EmpListDTO();
+        listDTO.setList(empDTOS);
+        listDTO.setTotal(amount);
+        return CommonResult.success(listDTO);
     }
     /**
      * 修改员工信息

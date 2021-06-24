@@ -40,8 +40,17 @@ public interface DeptMapper {
      */
     List<Dept> listOfDept(DeptQueryVO query);
 
+    /**
+     * 查询部门名和id
+     * @return
+     */
     List<Dept> listOfDeptNameToID();
 
+    /**
+     * 查询数据总量
+     * @return
+     */
+    int selectDeptAmount();
     /**
      * 更新部门信息 （选择性更新）
      * @param record 要更新的部门信息

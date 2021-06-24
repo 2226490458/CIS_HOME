@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.common.CommonResult;
+import com.example.demo.dtos.DeptListDTO;
 import com.example.demo.entity.Dept;
 import com.example.demo.mapper.DeptMapper;
 import com.example.demo.vos.dept.DeptAddVO;
@@ -21,7 +22,11 @@ public class DeptService {
 //    根据部门名称查询
     public CommonResult<Object> getDept(DeptQueryVO deptDeleteVO) {
         List<Dept> deptList = deptMapper.listOfDept(deptDeleteVO);
-        return CommonResult.success(deptList);
+        Integer amount = deptMapper.selectDeptAmount();
+        DeptListDTO listDTO = new DeptListDTO();
+        listDTO.setList(deptList);
+        listDTO.setTotal(amount);
+        return CommonResult.success(listDTO);
     }
 
 //    删除

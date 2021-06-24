@@ -35,6 +35,11 @@ public interface CusersMapper {
     Cusers selectByPrimaryKey(Integer userId);
 
 
+    /**
+     * 根据登录名查询用户
+     * @param loginName
+     * @return
+     */
     Cusers selectByUsername(String loginName);
 
     /**
@@ -50,6 +55,12 @@ public interface CusersMapper {
      * @return
      */
     List<Cusers> listUserInfo();
+
+    /**
+     * 查询用户数据总量
+     * @return
+     */
+    int selectUserAmount();
 
     /**
      * 更新用户信息
