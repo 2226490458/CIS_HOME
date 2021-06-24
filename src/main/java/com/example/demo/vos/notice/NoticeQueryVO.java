@@ -8,7 +8,6 @@ import com.example.demo.common.Page;
  */
 public class NoticeQueryVO extends Page {
     private String noticeTitle;
-
     private String noticeContent;
 
     @Override
