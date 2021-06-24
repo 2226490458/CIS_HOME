@@ -41,6 +41,12 @@ public interface DocumentMapper {
      */
     List<Document> listOfDocument(DocQueryVO query);
 
+
+    /**
+     * 查询文档的总量
+     * @return
+     */
+    int selectDocAmount();
     /**
      * 更新文档（选择性更新）
      * @param record 要更新的文档数据

@@ -15,7 +15,6 @@ public class EmpDeleteVO {
                 "ids=" + ids +
                 '}';
     }
-
     public List<Integer> getIds() {
         return ids;
     }

@@ -23,7 +23,16 @@
     where job_name like #{jobName} and job_status = 1
     limit #{page}, #{size}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listOfJobNameAndId" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from job
+      where job_status = 1
+    </select>
+    <select id="selectJobAmount" resultType="java.lang.Integer">
+      select COUNT(*) from job where job_status = 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from job
     where job_id = #{jobId,jdbcType=INTEGER}
   </delete>

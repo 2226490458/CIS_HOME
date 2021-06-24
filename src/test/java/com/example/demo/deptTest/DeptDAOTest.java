@@ -45,7 +45,8 @@ public class DeptDAOTest {
     public void updateDeptTest() {
         Dept dept = new Dept();
         dept.setDeptId(1);
-        dept.setDeptRemark("这是一个搞轻便、简易音乐的部门");
+        dept.setDeptName("运营部");
+        dept.setDeptRemark("这是一个搞运营的部门");
         int code = deptMapper.updateByPrimaryKeySelective(dept);
         System.out.println(code);
     }

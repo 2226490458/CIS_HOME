@@ -42,6 +42,12 @@ public interface EmployeeMapper {
     List<EmpDTO> listOfEmp(EmpQueryVO query);
 
     /**
+     * 查询员工总量
+     * @return
+     */
+    int selectEmpAmount();
+
+    /**
      * 更新员工信息（选择性更新）
      * @param record 要更新的员工信息数据
      * @return 1 表示更新成功； 0 表示更新失败
