@@ -51,7 +51,9 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 
         String token = (String) SecurityUtils.getSubject().getPrincipal();
+
         String loginName = JwtUtil.getUsername(token);
+
 
         if (loginName == null || "".equals(loginName)) {
             return null;
@@ -84,6 +86,11 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
+
+        if (Boolean.TRUE.equals(redisTemplate.hasKey(token))) {
+            return null;
+        }
+
         String loginName = null;
         try {
             loginName = JwtUtil.getUsername(token);

@@ -33,6 +33,7 @@ public class ShiroConfig {
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(
             @Qualifier("securityManager")SecurityManager securityManager
+//            @Qualifier("jwtFilter") JwtFilter jwtFilter
             ) {
         // 创建拦截链
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -47,13 +48,14 @@ public class ShiroConfig {
         // 未授权用户在请求需授权的url时的跳转路径
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorize");
 
-        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         // 设置放行的请求
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/face_login", "anon");
         filterChainDefinitionMap.put("/sys/**", "anon");
         filterChainDefinitionMap.put("/cis_doc/**", "anon");
+        filterChainDefinitionMap.put("/logout", "anon");
 
         // 设置拦截的请求
         filterChainDefinitionMap.put("/**", "authc");
@@ -61,7 +63,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         // 添加自定义拦截器
-        Map<String, Filter> filterMap = new HashMap<>(1);
+        Map<String, Filter> filterMap = new LinkedHashMap<>(1);
         filterMap.put("jwt", new JwtFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
 

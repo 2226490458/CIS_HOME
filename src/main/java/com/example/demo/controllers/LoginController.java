@@ -7,10 +7,12 @@ import com.example.demo.vos.dept.DeptQueryVO;
 import com.example.demo.vos.login.LoginFaceVO;
 import com.example.demo.vos.login.LoginVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 青菜白玉堂
@@ -33,6 +35,17 @@ public class LoginController {
     public CommonResult<Object> loginWithFace(LoginFaceVO faceVO) {
         return loginService.loginWidthFace(faceVO);
     }
+
+
+    @GetMapping("/logout")
+    public CommonResult<Object> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if (token == null || "".equals(token)) {
+            return CommonResult.fail("非法操作");
+        }
+        return loginService.logout(token);
+    }
+
 
     @RequiresPermissions("user:common")
     @PostMapping("/face_register")

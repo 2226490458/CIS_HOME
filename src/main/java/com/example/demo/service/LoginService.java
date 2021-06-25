@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -132,7 +133,12 @@ public class LoginService {
      * @return
      */
     public CommonResult<Object> logout(String token) {
-        redisTemplate.opsForValue().set(token, token, expireTime * 2 / 100, TimeUnit.SECONDS);
+        Date expiresAt = JwtUtil.getExpiresAt(token);
+        Date nowDate = new Date();
+        long gap = expiresAt.getTime() - nowDate.getTime();
+        if (gap > 0) {
+            redisTemplate.opsForValue().set(token, token, gap, TimeUnit.MILLISECONDS);
+        }
         return CommonResult.success("退出登录成功");
     }
 

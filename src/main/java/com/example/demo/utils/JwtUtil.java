@@ -50,7 +50,24 @@ public class JwtUtil {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("username").asString();
         } catch (JWTDecodeException e) {
-            e.printStackTrace();
+            System.out.println("token为空");
+            return null;
+        }
+    }
+
+    /**
+     * 获取该token到期的时间
+     * @param token
+     * @return
+     */
+    public static Date getExpiresAt(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            Date expiresAt = jwt.getExpiresAt();
+            assert expiresAt != null;
+            return expiresAt;
+        } catch (JWTDecodeException e) {
+            System.out.println("token不能为空");
             return null;
         }
     }
