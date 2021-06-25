@@ -8,6 +8,15 @@ public class UserAddVO {
     private String username;
     private String status;
     private String loginName;
+    private Integer UserId;
+
+    public Integer getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(Integer UserId) {
+        this.UserId = UserId;
+    }
 
     public String getUsername() {
         return username;
@@ -35,10 +44,11 @@ public class UserAddVO {
 
     @Override
     public String toString() {
-        return "EmpAddVO{" +
+        return "UserAddVO{" +
                 "username='" + username + '\'' +
                 ", status='" + status + '\'' +
                 ", loginName='" + loginName + '\'' +
+                ", UserId=" + UserId +
                 '}';
     }
 }
