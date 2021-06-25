@@ -8,7 +8,6 @@ import com.example.demo.common.Page;
  */
 public class NoticeQueryVO extends Page {
     private String noticeTitle;
-
     private String noticeContent;
 
     @Override
@@ -24,7 +23,11 @@ public class NoticeQueryVO extends Page {
     }
 
     public void setNoticeTitle(String noticeTitle) {
-        this.noticeTitle = noticeTitle == null ? null : "%" + noticeTitle + "%";
+        if (noticeTitle == null || "".equals(noticeTitle)) {
+            this.noticeTitle = null;
+        } else {
+            this.noticeTitle = "%" + noticeTitle + "%";
+        }
     }
 
     public String getNoticeContent() {
@@ -32,6 +35,10 @@ public class NoticeQueryVO extends Page {
     }
 
     public void setNoticeContent(String noticeContent) {
-        this.noticeContent = noticeContent == null ? null : "%" + noticeContent + "%";
+        if (noticeContent == null || "".equals(noticeContent)) {
+            this.noticeContent = null;
+        } else {
+            this.noticeContent = "%" + noticeContent + "%";
+        }
     }
 }

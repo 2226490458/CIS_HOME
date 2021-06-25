@@ -5,24 +5,45 @@ package com.example.demo.vos.user;
  * @create 2021-06-17
  */
 public class UserAddVO {
-    private String username;
-    private String status;
+    private String userName;
     private String loginName;
+    private Integer empId;
+    private Integer status;
+    private String userPwd;
 
-    public String getUsername() {
-        return username;
+    @Override
+    public String toString() {
+        return "UserAddVO{" +
+                "userName='" + userName + '\'' +
+                ", loginName='" + loginName + '\'' +
+                ", empId=" + empId +
+                ", status=" + status +
+                ", userPwd='" + userPwd + '\'' +
+                '}';
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public String getStatus() {
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
+
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getLoginName() {
@@ -33,12 +54,11 @@ public class UserAddVO {
         this.loginName = loginName;
     }
 
-    @Override
-    public String toString() {
-        return "EmpAddVO{" +
-                "username='" + username + '\'' +
-                ", status='" + status + '\'' +
-                ", loginName='" + loginName + '\'' +
-                '}';
+    public Integer getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
     }
 }
