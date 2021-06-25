@@ -6,12 +6,11 @@ import com.example.demo.vos.notice.NoticeAddVO;
 import com.example.demo.vos.notice.NoticeDeleteVO;
 import com.example.demo.vos.notice.NoticeFixVO;
 import com.example.demo.vos.notice.NoticeQueryVO;
-import com.example.demo.vos.user.UserDeleteVO;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-//import sun.tools.jconsole.inspector.XObject;
 
 import javax.annotation.Resource;
 
@@ -30,19 +29,21 @@ public class NoticeMangeController {
         return noticeService.getNotices(queryVO);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/deleteNotice")
     public CommonResult<Object> deleteNotices(@RequestBody NoticeDeleteVO deleteVO){
         return noticeService.deleteNotices(deleteVO);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/updateNotice")
     public CommonResult<Object> updateNotices(@RequestBody NoticeFixVO fixVO){
         return noticeService.updateNotices(fixVO);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/addNotice")
     public CommonResult<Object> addNotices(@RequestBody NoticeAddVO addVO){
-
         return  noticeService.addNotices(addVO);
     }
 

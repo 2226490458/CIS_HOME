@@ -23,7 +23,7 @@ public class UserServiceTest {
     @Test
     public void getUserTest(){
         UserQueryVO queryVO = new UserQueryVO();
-        queryVO.setUsername("111");
+        queryVO.setUserName("111");
         queryVO.setPage(1);
         queryVO.setSize(10);
         System.out.println(queryVO);
@@ -52,7 +52,7 @@ public class UserServiceTest {
     public void updateUserTest(){
         UserFixVO fixVO = new UserFixVO();
         fixVO.setUserId(2);
-        fixVO.setUsername("wx");
+        fixVO.setUserName("wx");
         fixVO.setLoginName("12345");
         CommonResult<Object> userList = userService.updateUsers(fixVO);
         userList.getMessage();
@@ -61,8 +61,8 @@ public class UserServiceTest {
     @Test
     public void addUserTest(){
         UserAddVO addVO = new UserAddVO();
-        addVO.setUserId(3);
-        addVO.setUsername("ceshi");
+        addVO.setEmpId(3);
+        addVO.setUserName("ceshi");
         addVO.setLoginName("54321");
         CommonResult<Object> userList = userService.addUsers(addVO);
         System.out.println(userList.getMessage());

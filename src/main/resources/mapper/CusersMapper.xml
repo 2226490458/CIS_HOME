@@ -29,8 +29,8 @@
     from cusers
     <where>
         user_status = 1
-      <if test="username != null">
-        and user_name like #{username, jdbcType=VARCHAR}
+      <if test="userName != null">
+        and user_name like #{userName, jdbcType=VARCHAR}
       </if>
       <if test="status != null">
         and status = #{status, jdbcType=VARCHAR}

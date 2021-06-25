@@ -41,7 +41,7 @@ public class UserDAOTest {
     @Test
     public void listOfUserTest() {
         UserQueryVO queryVO = new UserQueryVO();
-        queryVO.setUsername("秋山澪");
+        queryVO.setUserName("秋山澪");
         queryVO.setPage(1);
         queryVO.setSize(10);
         List<Cusers> userList = cusersMapper.listOfUser(queryVO);

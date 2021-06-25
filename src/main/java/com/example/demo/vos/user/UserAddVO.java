@@ -5,33 +5,45 @@ package com.example.demo.vos.user;
  * @create 2021-06-17
  */
 public class UserAddVO {
-    private String username;
-    private String status;
+    private String userName;
     private String loginName;
-    private Integer UserId;
+    private Integer empId;
+    private Integer status;
+    private String userPwd;
 
-    public Integer getUserId() {
-        return UserId;
+    @Override
+    public String toString() {
+        return "UserAddVO{" +
+                "userName='" + userName + '\'' +
+                ", loginName='" + loginName + '\'' +
+                ", empId=" + empId +
+                ", status=" + status +
+                ", userPwd='" + userPwd + '\'' +
+                '}';
     }
 
-    public void setUserId(Integer UserId) {
-        this.UserId = UserId;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public String getUsername() {
-        return username;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getLoginName() {
@@ -42,13 +54,11 @@ public class UserAddVO {
         this.loginName = loginName;
     }
 
-    @Override
-    public String toString() {
-        return "UserAddVO{" +
-                "username='" + username + '\'' +
-                ", status='" + status + '\'' +
-                ", loginName='" + loginName + '\'' +
-                ", UserId=" + UserId +
-                '}';
+    public Integer getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
     }
 }

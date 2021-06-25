@@ -7,6 +7,7 @@ import com.example.demo.vos.user.UserAddVO;
 import com.example.demo.vos.user.UserDeleteVO;
 import com.example.demo.vos.user.UserFixVO;
 import com.example.demo.vos.user.UserQueryVO;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,19 +30,22 @@ public class UserMangeController {
         return userService.getUser(queryVO);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/deleteUser")
     public CommonResult<Object> deleteUser(@RequestBody UserDeleteVO deleteVO){
         return  userService.deleteUser(deleteVO);
     }
 
+    @RequiresPermissions("user:admin")
     @PostMapping("/updateUser")
-    public  CommonResult<Object> updateUser(UserFixVO fixVO){
+    public  CommonResult<Object> updateUser(@RequestBody UserFixVO fixVO){
         return  userService.updateUsers(fixVO);
     }
 
+
+    @RequiresPermissions("user:admin")
     @PostMapping("/addUser")
     public CommonResult<Object> addUser(@RequestBody UserAddVO addVO){
-
         return  userService.addUsers(addVO);
     }
 }

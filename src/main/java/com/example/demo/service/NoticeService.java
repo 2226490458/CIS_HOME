@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.common.CommonResult;
 import com.example.demo.dtos.NoticeDTO;
+import com.example.demo.dtos.NoticeListDTO;
 import com.example.demo.entity.Cusers;
 import com.example.demo.entity.Notice;
 import com.example.demo.mapper.NoticeMapper;
@@ -25,7 +26,11 @@ public class NoticeService {
 
     public CommonResult<Object> getNotices(NoticeQueryVO queryVO){
         List<NoticeDTO> noticeList = noticeMapper.listOfNotice(queryVO);
-        return CommonResult.success(noticeList);
+        int amount = noticeMapper.selectNoticeAmount();
+        NoticeListDTO listDTO = new NoticeListDTO();
+        listDTO.setList(noticeList);
+        listDTO.setTotal(amount);
+        return CommonResult.success(listDTO);
     }
 
     public CommonResult<Object> deleteNotices(NoticeDeleteVO deleteVO){
@@ -42,8 +47,12 @@ public class NoticeService {
     public CommonResult<Object> updateNotices(NoticeFixVO fixVO){
         Notice notice = new Notice();
         notice.setNoticeId(fixVO.getNoticeId());
-        notice.setNoticeTitle(fixVO.getNoticeTitle());
-        notice.setNoticeContent(fixVO.getNoticeContent());
+        if (fixVO.getNoticeTitle() != null && !"".equals(fixVO.getNoticeTitle())) {
+            notice.setNoticeTitle(fixVO.getNoticeTitle());
+        }
+        if (fixVO.getNoticeContent() != null && !"".equals(fixVO.getNoticeContent())) {
+            notice.setNoticeContent(fixVO.getNoticeContent());
+        }
         int code = noticeMapper.updateByPrimaryKeySelective(notice);
         if(code==1){
             return CommonResult.success("更新成功");
@@ -53,6 +62,9 @@ public class NoticeService {
     }
 
     public CommonResult<Object> addNotices(NoticeAddVO addVO){
+        if ("".equals(addVO.getNoticeContent()) || "".equals(addVO.getNoticeTitle())) {
+            return CommonResult.fail("输入内容不能有空");
+        }
         Notice notice= new Notice();
         notice.setUserId(addVO.getUserId());
         notice.setNoticeStatus(1);
@@ -62,7 +74,6 @@ public class NoticeService {
         if(code==1){
             return CommonResult.success("添加成功");
         }
-        else
-            return  CommonResult.success("失败");
+        return CommonResult.success("失败");
     }
 }

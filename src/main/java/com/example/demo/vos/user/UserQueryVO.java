@@ -7,31 +7,34 @@ import com.example.demo.common.Page;
  * @create 2021-06-17
  */
 public class UserQueryVO extends Page {
-    private String username;
-    private String status;
+    private String userName;
+    private Integer status;
 
     @Override
     public String toString() {
-        return "EmpQueryVO{" +
-                "username='" + username + '\'' +
+        return "UserQueryVO{" +
+                "userName='" + userName + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? "%%" : "%" + username + "%";
+    public void setUserName(String userName) {
+        if (userName == null || "".equals(userName)) {
+            this.userName = null;
+        } else {
+            this.userName = "%" + userName + "%";
+        }
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
-
 }

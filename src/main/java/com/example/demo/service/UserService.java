@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
+import antlr.StringUtils;
 import com.example.demo.common.CommonResult;
+import com.example.demo.common.entityEnum.RecordExistEnum;
+import com.example.demo.dtos.UserListDTO;
 import com.example.demo.entity.Cusers;
 import com.example.demo.mapper.CusersMapper;
 import com.example.demo.vos.user.UserAddVO;
@@ -23,7 +26,11 @@ public class UserService {
 
     public CommonResult<Object> getUser(UserQueryVO queryVO){
         List<Cusers> cusersList = userMapper.listOfUser(queryVO);
-        return CommonResult.success(cusersList);
+        int amount = userMapper.selectUserAmount();
+        UserListDTO listDTO = new UserListDTO();
+        listDTO.setList(cusersList);
+        listDTO.setTotal(amount);
+        return CommonResult.success(listDTO);
     }
 
     public  CommonResult<Object> deleteUser(UserDeleteVO deleteVO){
@@ -38,9 +45,20 @@ public class UserService {
     }
 
     public  CommonResult<Object> updateUsers(UserFixVO fixVO){
+        if (fixVO.getUserId() == null) {
+            return CommonResult.fail("修改失败");
+        }
         Cusers cusers = new Cusers();
         cusers.setUserId(fixVO.getUserId());
-        cusers.setLoginName(fixVO.getLoginName());
+        if (fixVO.getLoginName() != null && !"".equals(fixVO.getLoginName())) {
+            cusers.setLoginName(fixVO.getLoginName());
+        }
+        if (fixVO.getUserName() != null && !"".equals(fixVO.getUserName())) {
+            cusers.setUserName(fixVO.getUserName());
+        }
+        if (fixVO.getStatus() != null) {
+            cusers.setStatus(fixVO.getStatus());
+        }
         int code = userMapper.updateByPrimaryKeySelective(cusers);
         if(code==1){
             return  CommonResult.success("更新成功");
@@ -49,16 +67,25 @@ public class UserService {
     }
 
     public CommonResult<Object> addUsers(UserAddVO addVO){
+        if (addVO.getEmpId() == null ||
+            addVO.getLoginName() == null ||
+            addVO.getUserName() == null ||
+                addVO.getStatus() == null
+        ) {
+            return CommonResult.fail("添加失败，请不要输入空数据");
+        }
         Cusers cusers = new Cusers();
-        cusers.setUserId(addVO.getUserId());
-        cusers.setUserName(addVO.getUsername());
+        cusers.setEmployeeId(addVO.getEmpId());
+        cusers.setUserName(addVO.getUserName());
         cusers.setLoginName(addVO.getLoginName());
+        cusers.setStatus(addVO.getStatus());
+        cusers.setUserStatus(RecordExistEnum.exist.getCode());
+        cusers.setUserPwd("".equals(addVO.getUserPwd()) ? "123456" : addVO.getUserPwd());
         int code = userMapper.insert(cusers);
-        if(code==1){
+        if(code == 1){
             return CommonResult.success("添加成功");
         }
-        else
-            return CommonResult.fail("添加失败");
+        return CommonResult.fail("添加失败");
     }
 }
 

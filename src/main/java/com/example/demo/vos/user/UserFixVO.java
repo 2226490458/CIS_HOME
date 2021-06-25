@@ -7,18 +7,18 @@ package com.example.demo.vos.user;
 public class UserFixVO extends UserAddVO {
     private Integer userId;
 
+    @Override
+    public String toString() {
+        return "UserFixVO{" +
+                "userId=" + userId +
+                '}';
+    }
+
     public Integer getUserId() {
         return userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "UserFixVO{" +
-                "userId=" + userId +
-                '}';
     }
 }
