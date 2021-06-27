@@ -42,10 +42,11 @@ public interface EmployeeMapper {
     List<EmpDTO> listOfEmp(EmpQueryVO query);
 
     /**
-     * 查询员工总量
+     * 查询员工总数
+     * @param queryVO
      * @return
      */
-    int selectEmpAmount();
+    int selectEmpAmount(EmpQueryVO queryVO);
 
     /**
      * 更新员工信息（选择性更新）

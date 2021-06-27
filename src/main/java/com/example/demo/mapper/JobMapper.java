@@ -51,7 +51,8 @@ public interface JobMapper {
      * 查职位总量
      * @return
      */
-    int selectJobAmount();
+    int selectJobAmount(JobQueryVO queryVO);
+
     /**
      * 更新职位信息（选择性更新）
      * @param record 要更新的职位信息数据

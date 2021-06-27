@@ -25,7 +25,7 @@ public class JobService {
 
     public CommonResult<Object> getJobs(JobQueryVO queryVO){
         List<Job> jobList= jobMapper.listOfJob(queryVO);
-        int amount = jobMapper.selectJobAmount();
+        int amount = jobMapper.selectJobAmount(queryVO);
         JobListDTO listDTO = new JobListDTO();
         listDTO.setList(jobList);
         listDTO.setTotal(amount);

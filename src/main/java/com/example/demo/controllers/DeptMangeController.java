@@ -28,7 +28,6 @@ public class DeptMangeController {
 //    根据部门名称查询
     @GetMapping("/getDept")
     public CommonResult<Object> getDept(DeptQueryVO deptQueryVO) {
-
         return deptService.getDept(deptQueryVO);
     }
 

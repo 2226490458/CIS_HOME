@@ -57,10 +57,11 @@ public interface CusersMapper {
     List<Cusers> listUserInfo();
 
     /**
-     * 查询用户数据总量
+     * 查询指定条件的用户总数
+     * @param query
      * @return
      */
-    int selectUserAmount();
+    int selectUserAmount(UserQueryVO query);
 
     /**
      * 更新用户信息

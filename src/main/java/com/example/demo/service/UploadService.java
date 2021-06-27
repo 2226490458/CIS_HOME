@@ -29,7 +29,7 @@ public class UploadService {
      */
     public CommonResult<Object> getDocs(DocQueryVO queryVO){
         List<Document> documentList = documentMapper.listOfDocument(queryVO);
-        Integer amount = documentMapper.selectDocAmount();
+        Integer amount = documentMapper.selectDocAmount(queryVO);
         DocListDTO listDTO = new DocListDTO();
         listDTO.setList(documentList);
         listDTO.setTotal(amount);

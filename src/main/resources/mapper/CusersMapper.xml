@@ -51,7 +51,19 @@
       where user_status = 1
     </select>
     <select id="selectUserAmount" resultType="java.lang.Integer">
-      select COUNT(*) from cusers where user_status = 1
+      select
+      COUNT(*)
+      from cusers
+      where
+      <where>
+        user_status = 1
+        <if test="userName != null">
+          and user_name like #{userName, jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+          and status = #{status, jdbcType=VARCHAR}
+        </if>
+      </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from cusers

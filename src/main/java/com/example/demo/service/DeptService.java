@@ -20,9 +20,9 @@ public class DeptService {
     private DeptMapper deptMapper;
 
 //    根据部门名称查询
-    public CommonResult<Object> getDept(DeptQueryVO deptDeleteVO) {
-        List<Dept> deptList = deptMapper.listOfDept(deptDeleteVO);
-        Integer amount = deptMapper.selectDeptAmount();
+    public CommonResult<Object> getDept(DeptQueryVO queryVO) {
+        List<Dept> deptList = deptMapper.listOfDept(queryVO);
+        Integer amount = deptMapper.selectDeptAmount(queryVO);
         DeptListDTO listDTO = new DeptListDTO();
         listDTO.setList(deptList);
         listDTO.setTotal(amount);

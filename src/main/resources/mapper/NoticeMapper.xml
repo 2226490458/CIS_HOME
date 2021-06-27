@@ -43,7 +43,18 @@
     limit #{page}, #{size}
   </select>
   <select id="selectNoticeAmount" resultType="java.lang.Integer">
-    select COUNT(*) from notice where notice_status = 1
+    select
+    COUNT(*)
+    from notice
+    <where>
+      notice_status = 1
+      <if test="noticeTitle != null">
+        and notice_title like #{noticeTitle}
+      </if>
+      <if test="noticeContent != null">
+        and notice_content like #{noticeContent}
+      </if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from notice

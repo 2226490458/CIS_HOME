@@ -33,7 +33,15 @@
     limit #{page}, #{size}
   </select>
   <select id="selectDocAmount" resultType="java.lang.Integer">
-    select COUNT(*) from document where document_status = 1
+    select
+    COUNT(*)
+    from document
+    <where>
+      document_status = 1
+      <if test="documentTitle != null">
+        and document_title like #{documentTitle}
+      </if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from document

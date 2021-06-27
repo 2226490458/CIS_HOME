@@ -26,7 +26,7 @@ public class UserService {
 
     public CommonResult<Object> getUser(UserQueryVO queryVO){
         List<Cusers> cusersList = userMapper.listOfUser(queryVO);
-        int amount = userMapper.selectUserAmount();
+        int amount = userMapper.selectUserAmount(queryVO);
         UserListDTO listDTO = new UserListDTO();
         listDTO.setList(cusersList);
         listDTO.setTotal(amount);

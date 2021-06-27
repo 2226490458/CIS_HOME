@@ -42,7 +42,7 @@ public class EmpService {
      */
     public CommonResult<Object> listEmployee(EmpQueryVO empQueryVO){
         List<EmpDTO> empDTOS = employeeMapper.listOfEmp(empQueryVO);
-        int amount = employeeMapper.selectEmpAmount();
+        int amount = employeeMapper.selectEmpAmount(empQueryVO);
         EmpListDTO listDTO = new EmpListDTO();
         listDTO.setList(empDTOS);
         listDTO.setTotal(amount);

@@ -43,10 +43,11 @@ public interface DocumentMapper {
 
 
     /**
-     * 查询文档的总量
+     * 查询文档总量
+     * @param queryVO
      * @return
      */
-    int selectDocAmount();
+    int selectDocAmount(DocQueryVO queryVO);
     /**
      * 更新文档（选择性更新）
      * @param record 要更新的文档数据

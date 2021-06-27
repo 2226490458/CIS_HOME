@@ -74,7 +74,30 @@
     limit #{page}, #{size}
   </select>
     <select id="selectEmpAmount" resultType="java.lang.Integer">
-      select COUNT(*) from employee where employee_status = 1
+      select
+      COUNT(*)
+      from employee
+      <where>
+        employee_status = 1
+        <if test="jobId != null">
+          and job_id = #{jobId}
+        </if>
+        <if test="sex != null">
+          and sex = #{sex}
+        </if>
+        <if test="employeeName != null">
+          and employee_name like #{employeeName}
+        </if>
+        <if test="phone != null">
+          and phone = #{phone}
+        </if>
+        <if test="cardId != null">
+          and card_id = #{cardId}
+        </if>
+        <if test="deptId != null">
+          and dept_id =#{deptId}
+        </if>
+      </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employee

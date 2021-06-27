@@ -46,7 +46,7 @@ public interface NoticeMapper {
      * 查询公告总量
      * @return
      */
-    int selectNoticeAmount();
+    int selectNoticeAmount(NoticeQueryVO queryVO);
     /**
      * 更新公告（选择性更新）
      * @param record 要更新的公告信息数据

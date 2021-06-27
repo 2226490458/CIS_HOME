@@ -22,6 +22,10 @@ public class JobQueryVO extends Page {
     }
 
     public void setJobName(String jobName) {
-        this.jobName = jobName == null ? "%%" : "%" + jobName + "%";
+        if (jobName == null || "".equals(jobName)) {
+            this.jobName = null;
+        } else {
+            this.jobName = "%" + jobName + "%";
+        }
     }
 }

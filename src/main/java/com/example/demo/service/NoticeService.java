@@ -26,7 +26,7 @@ public class NoticeService {
 
     public CommonResult<Object> getNotices(NoticeQueryVO queryVO){
         List<NoticeDTO> noticeList = noticeMapper.listOfNotice(queryVO);
-        int amount = noticeMapper.selectNoticeAmount();
+        int amount = noticeMapper.selectNoticeAmount(queryVO);
         NoticeListDTO listDTO = new NoticeListDTO();
         listDTO.setList(noticeList);
         listDTO.setTotal(amount);
@@ -57,8 +57,7 @@ public class NoticeService {
         if(code==1){
             return CommonResult.success("更新成功");
         }
-        else
-            return  CommonResult.success("失败");
+        return  CommonResult.success("失败");
     }
 
     public CommonResult<Object> addNotices(NoticeAddVO addVO){
