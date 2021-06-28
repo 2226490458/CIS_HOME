@@ -123,7 +123,7 @@ public class LoginService {
         if (code == 0) {
             return CommonResult.fail("人脸注册失败");
         }
-        return createLoginResponse(user);
+        return CommonResult.success("注册成功");
     }
 
 
