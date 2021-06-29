@@ -54,7 +54,6 @@
       select
       COUNT(*)
       from cusers
-      where
       <where>
         user_status = 1
         <if test="userName != null">

@@ -49,8 +49,6 @@ public class FileUtil {
 			buf = new byte[fis.available()];
 			fis.read(buf);
 			return Base64.encodeBase64String(buf);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally{
