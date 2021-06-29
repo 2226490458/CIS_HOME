@@ -14,6 +14,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -27,14 +28,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Component(value = "CustomRealm")
 public class ShiroRealm extends AuthorizingRealm {
-//    @Resource
-//    private RedisTemplate<String, String> redisTemplate;
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
 
     @Resource
     private CusersMapper cusersMapper;
 
-    @Value("${custom.jwt.expire_time}")
-    private long expireTime;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -86,9 +85,9 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
 
-//        if (Boolean.TRUE.equals(redisTemplate.hasKey(token))) {
-//            return null;
-//        }
+        if (Boolean.TRUE.equals(redisTemplate.hasKey(token))) {
+            return null;
+        }
 
         String loginName = null;
         try {
