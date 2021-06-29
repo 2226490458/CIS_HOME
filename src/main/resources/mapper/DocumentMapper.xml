@@ -43,10 +43,7 @@
       </if>
     </where>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from document
-    where document_id = #{documentId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyColumn="document_id" keyProperty="documentId" >
     insert into document (user_id, document_title,
       document_name, document_remark,
@@ -55,43 +52,7 @@
       #{documentName,jdbcType=VARCHAR}, #{documentRemark,jdbcType=VARCHAR}, #{documentStatus,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Document" useGeneratedKeys="true" keyColumn="document_id" keyProperty="documentId" >
-    insert into document
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="documentTitle != null" >
-        document_title,
-      </if>
-      <if test="documentName != null" >
-        document_name,
-      </if>
-      <if test="documentRemark != null" >
-        document_remark,
-      </if>
-      <if test="documentStatus != null" >
-        document_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="documentTitle != null" >
-        #{documentTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="documentName != null" >
-        #{documentName,jdbcType=VARCHAR},
-      </if>
-      <if test="documentRemark != null" >
-        #{documentRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="documentStatus != null" >
-        #{documentStatus,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Document" >
     update document
     <set >
@@ -116,14 +77,5 @@
     </set>
     where document_id = #{documentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Document" >
-    update document
-    set user_id = #{userId,jdbcType=INTEGER},
-      document_title = #{documentTitle,jdbcType=VARCHAR},
-      document_name = #{documentName,jdbcType=VARCHAR},
-      document_remark = #{documentRemark,jdbcType=VARCHAR},
-      document_create = #{documentCreate,jdbcType=TIMESTAMP},
-      document_status = #{documentStatus,jdbcType=INTEGER}
-    where document_id = #{documentId,jdbcType=INTEGER}
-  </update>
+
 </mapper>

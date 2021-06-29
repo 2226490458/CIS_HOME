@@ -7,12 +7,7 @@ import com.example.demo.vos.emp.EmpQueryVO;
 import java.util.List;
 
 public interface EmployeeMapper {
-    /**
-     * 根据员工编号删除某位员工
-     * @param employeeId 员工编号
-     * @return 1 表示删除成功； 0 表示删除失败
-     */
-    int deleteByPrimaryKey(Integer employeeId);
+
 
     /**
      * 添加员工（完整员工信息）
@@ -21,12 +16,6 @@ public interface EmployeeMapper {
      */
     int insert(Employee record);
 
-    /**
-     * 添加员工（不完整的员工信息）
-     * @param record 不完整的员工信息
-     * @return 1 表示添加成功； 0 表示添加失败
-     */
-    int insertSelective(Employee record);
 
     /**
      * 根据员工编号查寻某位员工信息
@@ -55,10 +44,4 @@ public interface EmployeeMapper {
      */
     int updateByPrimaryKeySelective(Employee record);
 
-    /**
-     * 更新员工信息（全部更新）
-     * @param record 要更新的员工信息数据
-     * @return 1 表示更新成功； 0 表示更新失败
-     */
-    int updateByPrimaryKey(Employee record);
 }

@@ -6,12 +6,7 @@ import com.example.demo.vos.job.JobQueryVO;
 import java.util.List;
 
 public interface JobMapper {
-    /**
-     * 根据职位编号删除职位
-     * @param jobId 职位编号
-     * @return 1 表示删除成功； 0 表示删除失败
-     */
-    int deleteByPrimaryKey(Integer jobId);
+
 
     /**
      * 添加职位 (信息完整)
@@ -20,12 +15,6 @@ public interface JobMapper {
      */
     int insert(Job record);
 
-    /**
-     * 添加职位 （信息不完整）
-     * @param record 信息不完整的职位数据
-     * @return 1 表示添加成功； 0 表示添加失败
-     */
-    int insertSelective(Job record);
 
     /**
      * 根据职位编号查询某个职位信息
@@ -48,7 +37,8 @@ public interface JobMapper {
     List<Job> listOfJobNameAndId();
 
     /**
-     * 查职位总量
+     * 查询职位数量
+     * @param queryVO
      * @return
      */
     int selectJobAmount(JobQueryVO queryVO);
@@ -60,10 +50,4 @@ public interface JobMapper {
      */
     int updateByPrimaryKeySelective(Job record);
 
-    /**
-     * 更新职位信息（全部更新）
-     * @param record 更新的职位信息数据
-     * @return 1 表示更新成功； 0 表示更新失败
-     */
-    int updateByPrimaryKey(Job record);
 }

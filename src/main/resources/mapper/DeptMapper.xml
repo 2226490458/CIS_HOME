@@ -10,12 +10,14 @@
   <sql id="Base_Column_List" >
     dept_id, dept_name, dept_remark, dept_status
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from dept
     where dept_id = #{deptId,jdbcType=INTEGER}
   </select>
+
   <select id="listOfDept" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -28,6 +30,7 @@
     </where>
     limit #{page, jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
   </select>
+
     <select id="listOfDeptNameToID" resultMap="BaseResultMap">
       select
       <include refid="Base_Column_List"/>
@@ -45,39 +48,12 @@
         </if>
       </where>
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from dept
-    where dept_id = #{deptId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.example.demo.entity.Dept" useGeneratedKeys="true" keyColumn="dept_id" keyProperty="deptId" >
     insert into dept (dept_name, dept_remark,dept_status)
     values (#{deptName,jdbcType=VARCHAR}, #{deptRemark,jdbcType=VARCHAR},#{deptStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Dept" useGeneratedKeys="true" keyColumn="dept_id" keyProperty="deptId" >
-    insert into dept
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="deptName != null" >
-        dept_name,
-      </if>
-      <if test="deptRemark != null" >
-        dept_remark,
-      </if>
-      <if test="deptStatus != null" >
-        dept_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="deptName != null" >
-        #{deptName,jdbcType=VARCHAR},
-      </if>
-      <if test="deptRemark != null" >
-        #{deptRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="deptStatus != null" >
-        #{deptStatus,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Dept" >
     update dept
     <set >
@@ -93,11 +69,5 @@
     </set>
     where dept_id = #{deptId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Dept" >
-    update dept
-    set dept_name = #{deptName,jdbcType=VARCHAR},
-      dept_remark = #{deptRemark,jdbcType=VARCHAR},
-      dept_status = #{deptStatus,jdbcType=INTEGER}
-    where dept_id = #{deptId,jdbcType=INTEGER}
-  </update>
+
 </mapper>

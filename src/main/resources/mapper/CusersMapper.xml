@@ -64,10 +64,7 @@
         </if>
       </where>
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from cusers
-    where user_id = #{userId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.example.demo.entity.Cusers" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" >
     insert into cusers (employee_id, login_name,
       user_name, user_pwd, STATUS, 
@@ -78,67 +75,7 @@
       #{faceUrl,jdbcType=VARCHAR}, #{facePath,jdbcType=VARCHAR},
       #{userStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Cusers" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" >
-    insert into cusers
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="employeeId != null" >
-        employee_id,
-      </if>
-      <if test="loginName != null" >
-        login_name,
-      </if>
-      <if test="userName != null" >
-        user_name,
-      </if>
-      <if test="userPwd != null" >
-        user_pwd,
-      </if>
-      <if test="status != null" >
-        STATUS,
-      </if>
-      <if test="userCreate != null" >
-        user_create,
-      </if>
-      <if test="faceUrl != null" >
-        face_url,
-      </if>
-      <if test="facePath != null" >
-        face_path,
-      </if>
-      <if test="userStatus != null" >
-        user_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="employeeId != null" >
-        #{employeeId,jdbcType=INTEGER},
-      </if>
-      <if test="loginName != null" >
-        #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userPwd != null" >
-        #{userPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="userCreate != null" >
-        #{userCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="faceUrl != null" >
-        #{faceUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="facePath != null" >
-        #{facePath,jdbcType=VARCHAR},
-      </if>
-      <if test="userStatus != null" >
-        #{userStatus,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Cusers" >
     update cusers
     <set >
@@ -170,19 +107,6 @@
         user_status = #{userStatus,jdbcType=INTEGER},
       </if>
     </set>
-    where user_id = #{userId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Cusers" >
-    update cusers
-    set employee_id = #{employeeId,jdbcType=INTEGER},
-      login_name = #{loginName,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      user_pwd = #{userPwd,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=INTEGER},
-      user_create = #{userCreate,jdbcType=TIMESTAMP},
-      face_url = #{faceUrl,jdbcType=VARCHAR},
-      face_path = #{facePath,jdbcType=VARCHAR},
-      user_status = #{userStatus,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>
