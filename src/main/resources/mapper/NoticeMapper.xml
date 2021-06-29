@@ -56,10 +56,7 @@
       </if>
     </where>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from notice
-    where notice_id = #{noticeId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyColumn="notice_id" keyProperty="noticeId" >
     insert into notice ( user_id, notice_title,
       notice_content, notice_status
@@ -68,38 +65,7 @@
       #{noticeContent,jdbcType=VARCHAR}, #{noticeStatus,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.entity.Notice" useGeneratedKeys="true" keyColumn="notice_id" keyProperty="noticeId"  >
-    insert into notice
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="noticeTitle != null" >
-        notice_title,
-      </if>
-      <if test="noticeContent != null" >
-        notice_content,
-      </if>
-      <if test="noticeStatus != null" >
-        notice_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="noticeTitle != null" >
-        #{noticeTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="noticeContent != null" >
-        #{noticeContent,jdbcType=VARCHAR},
-      </if>
-      <if test="noticeStatus != null" >
-        #{noticeStatus,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Notice" >
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Notice" >
     update notice
     <set >
       <if test="userId != null" >
@@ -120,13 +86,5 @@
     </set>
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Notice" >
-    update notice
-    set user_id = #{userId,jdbcType=INTEGER},
-      notice_title = #{noticeTitle,jdbcType=VARCHAR},
-      notice_content = #{noticeContent,jdbcType=VARCHAR},
-      notice_create = #{noticeCreate,jdbcType=TIMESTAMP},
-      notice_status = #{noticeStatus,jdbcType=INTEGER}
-    where notice_id = #{noticeId,jdbcType=INTEGER}
-  </update>
+
 </mapper>

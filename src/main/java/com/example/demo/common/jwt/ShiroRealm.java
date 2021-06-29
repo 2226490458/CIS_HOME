@@ -14,7 +14,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -28,8 +27,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Component(value = "CustomRealm")
 public class ShiroRealm extends AuthorizingRealm {
-    @Resource
-    private RedisTemplate<String, String> redisTemplate;
+//    @Resource
+//    private RedisTemplate<String, String> redisTemplate;
 
     @Resource
     private CusersMapper cusersMapper;
@@ -87,9 +86,9 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
 
-        if (Boolean.TRUE.equals(redisTemplate.hasKey(token))) {
-            return null;
-        }
+//        if (Boolean.TRUE.equals(redisTemplate.hasKey(token))) {
+//            return null;
+//        }
 
         String loginName = null;
         try {
@@ -111,15 +110,15 @@ public class ShiroRealm extends AuthorizingRealm {
      * @param password
      * @return
      */
-    public boolean jwtTokenRefresh(String token, String username, String password) {
-        String redisToken = (String) redisTemplate.opsForValue().get(token);
-        if (redisToken != null) {
-            if (!JwtUtil.verify(redisToken, username, password)) {
-                String newToken = JwtUtil.sign(username, password);
-                redisTemplate.opsForValue().set(token, newToken, expireTime * 2/ 1000, TimeUnit.SECONDS);
-            }
-            return true;
-        }
-        return false;
-    }
+//    public boolean jwtTokenRefresh(String token, String username, String password) {
+//        String redisToken = (String) redisTemplate.opsForValue().get(token);
+//        if (redisToken != null) {
+//            if (!JwtUtil.verify(redisToken, username, password)) {
+//                String newToken = JwtUtil.sign(username, password);
+//                redisTemplate.opsForValue().set(token, newToken, expireTime * 2/ 1000, TimeUnit.SECONDS);
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
 }
