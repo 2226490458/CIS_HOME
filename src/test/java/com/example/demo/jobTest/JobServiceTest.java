@@ -27,7 +27,7 @@ public class JobServiceTest {
         JobAddVO jobAddVO = new JobAddVO();
         jobAddVO.setJobName("键盘手");
         jobAddVO.setJobRemark("负责乐器键盘的人");
-        CommonResult<Object> code = jobService.addJobs(jobAddVO);
+        CommonResult<Object> code = jobService.addJob(jobAddVO);
         System.out.println(code.getStatus());
     }
 
@@ -59,7 +59,7 @@ public class JobServiceTest {
         ids.add(1);
         ids.add(2);
         jobDeleteVO.setIds(ids);
-        CommonResult<Object> code = jobService.deleteJobs(jobDeleteVO);
+        CommonResult<Object> code = jobService.deleteJob(jobDeleteVO);
         System.out.println(code.getStatus());
     }
 }

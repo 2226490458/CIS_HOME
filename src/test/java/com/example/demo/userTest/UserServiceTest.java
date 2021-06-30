@@ -27,7 +27,7 @@ public class UserServiceTest {
         queryVO.setPage(1);
         queryVO.setSize(10);
         System.out.println(queryVO);
-        CommonResult<Object> userList = userService.getUser(queryVO);
+        CommonResult<Object> userList = userService.getUsers(queryVO);
         System.out.println(userList.getStatus());
         userList.getMessage();
         assert userList != null;
@@ -64,7 +64,7 @@ public class UserServiceTest {
         addVO.setEmpId(3);
         addVO.setUserName("ceshi");
         addVO.setLoginName("54321");
-        CommonResult<Object> userList = userService.addUsers(addVO);
+        CommonResult<Object> userList = userService.addUser(addVO);
         System.out.println(userList.getMessage());
     }
 }

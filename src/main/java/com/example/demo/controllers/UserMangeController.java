@@ -25,9 +25,9 @@ public class UserMangeController {
     @Resource
     private UserService userService;
 
-    @GetMapping("/getUser")
+    @GetMapping("/getUsers")
     public CommonResult<Object> getUsers(UserQueryVO queryVO){
-        return userService.getUser(queryVO);
+        return userService.getUsers(queryVO);
     }
 
     @RequiresPermissions("user:admin")
@@ -46,6 +46,6 @@ public class UserMangeController {
     @RequiresPermissions("user:admin")
     @PostMapping("/addUser")
     public CommonResult<Object> addUser(@RequestBody UserAddVO addVO){
-        return  userService.addUsers(addVO);
+        return  userService.addUser(addVO);
     }
 }

@@ -17,6 +17,11 @@ public class PswService {
     @Resource
     private CusersMapper cusersMapper;
 
+    /**
+     * 更新用户密码
+     * @param passwordVO 新密码
+     * @return
+     */
     public CommonResult<Object> updateUserPsw(PasswordVO passwordVO) {
         Cusers user = new Cusers();
         Cusers oldUser = cusersMapper.selectByPrimaryKey(passwordVO.getUserId());

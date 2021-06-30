@@ -24,29 +24,49 @@ public class JobController {
     @Resource
     private JobService jobService;
 
+    /**
+     * 分页查询职位
+     * @param queryVO 查询条件
+     * @return
+     */
     @GetMapping("/getjobs")
     public CommonResult<Object> getJobs(JobQueryVO queryVO){
         return jobService.getJobs(queryVO);
     }
 
+    /**
+     * 删除职位
+     * @param deleteVO 被删除职位编号信息
+     * @return
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/deleteJob")
     public CommonResult<Object> deleteJob(@RequestBody JobDeleteVO deleteVO){
-        return jobService.deleteJobs(deleteVO);
+        return jobService.deleteJob(deleteVO);
     }
 
+    /**
+     * 更新职位
+     * @param fixVO 更新信息
+     * @return
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/updateJob")
     public CommonResult<Object> updateJob(@RequestBody JobFixVO fixVO){
-        return jobService.updateJobs(fixVO);
+        return jobService.updateJob(fixVO);
     }
 
+    /**
+     * 添加职位
+     * @param addVO
+     * @return
+     */
     @RequiresPermissions("user:admin")
-    @PostMapping("/AddJob")
+    @PostMapping("/addJob")
     public CommonResult<Object> addJob(@RequestBody JobAddVO addVO)
     {
 
-        return jobService.addJobs(addVO);
+        return jobService.addJob(addVO);
     }
 
 

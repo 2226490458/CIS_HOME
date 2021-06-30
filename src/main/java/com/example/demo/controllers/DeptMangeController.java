@@ -25,15 +25,19 @@ public class DeptMangeController {
     @Resource
     private DeptService deptService;
 
-//    根据部门名称查询
+    /**
+     * 分页查询部门
+     * @param deptQueryVO 前端输入的数据
+     * @return
+     */
     @GetMapping("/getDept")
     public CommonResult<Object> getDept(DeptQueryVO deptQueryVO) {
-        return deptService.getDept(deptQueryVO);
+        return deptService.getDepts(deptQueryVO);
     }
 
     /**
      * 删除
-     * @param deptDeleteVO
+     * @param deptDeleteVO 前端输入的数据
      * @return
      */
     @RequiresPermissions("user:admin")
@@ -43,7 +47,11 @@ public class DeptMangeController {
         return deptService.deleteDept(deptDeleteVO);
     }
 
-//    修改
+    /**
+     * 更新部门信息
+     * @param deptFixVO 前端输入的数据
+     * @return
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/updateDept")
     public CommonResult<Object> updateDept(@RequestBody DeptFixVO deptFixVO) {
@@ -51,7 +59,11 @@ public class DeptMangeController {
         return deptService.updateDept(deptFixVO);
     }
 
-//    添加
+    /**
+     * 添加部门信息
+     * @param deptAddVO 前端输入的数据
+     * @return
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/addDept")
     public CommonResult<Object> addDept(@RequestBody DeptAddVO deptAddVO) {

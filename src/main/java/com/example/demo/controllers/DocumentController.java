@@ -41,7 +41,13 @@ public class DocumentController {
         }
     }
 
-
+    /**
+     * 更新文档
+     * @param file 文档文件
+     * @param document 文档信息
+     * @return
+     * @throws IOException
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/updateDocs")
     public CommonResult<Object> updateDocs(MultipartFile file, Document document) throws IOException{
@@ -52,12 +58,25 @@ public class DocumentController {
         return uploadService.updateDocs(document);
     }
 
+    /**
+     * 更新文档信息
+     * @param document
+     * @return
+     * @throws IOException
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/updateDocsText")
     public CommonResult<Object> updateDocs(@RequestBody Document document) throws IOException{
         return uploadService.updateDocs(document);
     }
 
+    /**
+     * 添加文档
+     * @param file
+     * @param document
+     * @return
+     * @throws IOException
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/addDocs")
     public CommonResult<Object> addDocs(MultipartFile file, Document document) throws IOException {
@@ -67,17 +86,32 @@ public class DocumentController {
         return uploadService.addDocs(document);
     }
 
+    /**
+     * 删除文档
+     * @param deleteVO
+     * @return
+     */
     @RequiresPermissions("user:admin")
     @PostMapping("/deleteDocs")
     public CommonResult<Object> deleteDocs(@RequestBody DocDeleteVO deleteVO){
         return uploadService.deleteDocs(deleteVO);
     }
 
+    /**
+     * 分页查询文档
+     * @param queryVO
+     * @return
+     */
     @GetMapping("/getDocs")
     public CommonResult<Object> getDocs(DocQueryVO queryVO){
         return uploadService.getDocs(queryVO);
     }
 
+    /**
+     * 下载
+     * @param document
+     * @return
+     */
     @PostMapping("/downLoad")
     public CommonResult<Object> downLoad(@RequestBody Document document){
         String url = downloadUrl + document.getDocumentName();

@@ -37,10 +37,6 @@ public class LoginService {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
-
-    @Value("${custom.jwt.expire_time}")
-    private long expireTime;
-
     /**
      * 账号密码登录
      * @param loginVO

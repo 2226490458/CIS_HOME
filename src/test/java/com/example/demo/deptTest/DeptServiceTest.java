@@ -25,7 +25,7 @@ public class DeptServiceTest {
         deptQueryVO.setDeptName("研发部");
         deptQueryVO.setPage(1);
         deptQueryVO.setSize(10);
-        CommonResult<Object> flag = deptService.getDept(deptQueryVO);
+        CommonResult<Object> flag = deptService.getDepts(deptQueryVO);
         System.out.println(flag.getStatus());// 获得业务状态码 status = 200
     }
 
