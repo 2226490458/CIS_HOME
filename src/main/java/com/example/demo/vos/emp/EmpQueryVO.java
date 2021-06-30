@@ -39,7 +39,7 @@ public class EmpQueryVO extends Page {
     }
 
     public void setSex(Integer sex) {
-        this.sex = sex;
+        this.sex =  sex;
     }
 
     public String getEmployeeName() {
@@ -55,7 +55,7 @@ public class EmpQueryVO extends Page {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = "".equals(phone) ? null : phone;
     }
 
     public String getCardId() {
@@ -63,7 +63,7 @@ public class EmpQueryVO extends Page {
     }
 
     public void setCardId(String cardId) {
-        this.cardId = cardId;
+        this.cardId = "".equals(cardId) ? null : cardId;
     }
 
     public Integer getDeptId() {
