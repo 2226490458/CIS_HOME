@@ -64,6 +64,12 @@
         </if>
       </where>
     </select>
+  <select id="selectByEmpId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cusers
+    where employee_id = #{empId} and user_status = 1
+  </select>
 
   <insert id="insert" parameterType="com.example.demo.entity.Cusers" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" >
     insert into cusers (employee_id, login_name,

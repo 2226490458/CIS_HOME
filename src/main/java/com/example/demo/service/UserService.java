@@ -102,6 +102,10 @@ public class UserService {
         ) {
             return CommonResult.fail("添加失败，请不要输入空数据");
         }
+        boolean isUnExist = userMapper.selectByEmpId(addVO.getEmpId()) != null;
+        if (isUnExist) {
+            return CommonResult.fail("用户已存在");
+        }
         Cusers cusers = new Cusers();
         cusers.setEmployeeId(addVO.getEmpId());
         cusers.setUserName(addVO.getUserName());

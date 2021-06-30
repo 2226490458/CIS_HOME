@@ -72,10 +72,13 @@ public class DeptService {
         // 1. 设置要修改的部门的编号
         dept.setDeptId(deptFixVO.getDeptId());
         // 2. 设置要修改的部门名称
-        dept.setDeptName(deptFixVO.getDeptName());
+        if (deptFixVO.getDeptName() != null && !"".equals(deptFixVO.getDeptName())) {
+            dept.setDeptName(deptFixVO.getDeptName());
+        }
         // 3. 设置新的部门描述
-        dept.setDeptRemark(deptFixVO.getDeptRemark());
-
+        if (deptFixVO.getDeptRemark() != null && !"".equals(deptFixVO.getDeptRemark())) {
+            dept.setDeptRemark(deptFixVO.getDeptRemark());
+        }
         // 4. 调用DAO的更新方法，判断返回值
         int code = deptMapper.updateByPrimaryKeySelective(dept);
         if (code == 1) {
@@ -92,8 +95,8 @@ public class DeptService {
     public CommonResult<Object> addDept(DeptAddVO deptAddVO) {
         Dept dept = new Dept();
         // 设置新部门
-        dept.setDeptName(deptAddVO.getDeptName());
         dept.setDeptRemark(deptAddVO.getDeptRemark());
+        dept.setDeptName(deptAddVO.getDeptName());
         dept.setDeptStatus(1);
         // 调用DAO层的添加方法，判断返回值
         int code = deptMapper.insert(dept);

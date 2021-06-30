@@ -22,6 +22,8 @@ public interface CusersMapper {
      */
     Cusers selectByPrimaryKey(Integer userId);
 
+    Cusers selectByEmpId(Integer empId);
+
 
     /**
      * 根据登录名查询用户
